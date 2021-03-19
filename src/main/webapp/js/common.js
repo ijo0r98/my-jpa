@@ -1,0 +1,1 @@
+const baseUrl = $(location).attr('protocol') + '//' + $(location).attr('host');
