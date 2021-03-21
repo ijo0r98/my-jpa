@@ -26,7 +26,7 @@ public class Category {
 
     @JsonBackReference
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<com.study.boot.board.domain.Board> boards = new ArrayList<>();
+    private List<Board> boards = new ArrayList<>();
 
 }
 

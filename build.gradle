@@ -27,6 +27,7 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-taglibs'
 
 	compileOnly 'org.projectlombok:lombok'
+	// devtool 자동빌드
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
