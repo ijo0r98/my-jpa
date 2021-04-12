@@ -7,29 +7,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
 </head>
 <body>
-<form action="/login" method="post">
-<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    아이디와 비밀번호를 입력하세요.<br/>
-    <table id="tbLogin">
-        <tr>
-            <td>아이디 : </td>
-            <td> <input type="text" name="username" /> <br/></td>
-        </tr>
-        <tr>
-            <td>비밀번호 : </td>
-            <td><input type="password" name="password"/></td>
-        </tr>
-    </table>
-    <button type="submit">로그인</button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand">By JURAN</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+<%--            <ul class="navbar-nav ml-auto">--%>
+<%--                <li class="nav-ite">--%>
+<%--                    <a class="nav-link" href="#">Home--%>
+<%--                        <span class="sr-only">(current)</span>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="nav-item">--%>
+<%--                    <a class="nav-link" href="#">Mypage</a>--%>
+<%--                </li>--%>
+<%--            </ul>--%>
+        </div>
+    </div>
+</nav>
 
-    <c:if test="${not empty errorMsg}">
-        ${errorMsg}
-    </c:if>
-</form>
-<br/>
-
-<button type="button" onclick="location.href='/signup'">회원가입</button>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1 class="mt-5"></h1>
+            <p class="lead">아이디와 비밀번호를 입력해 주세요</p>
+            <ul class="list-unstyled">
+                <form action="/login" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <li>
+                    <input type="text" class="form-control" placeholder="ID" style="width: 600px; margin: auto" name="username">
+                    <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>
+                </li>
+                <li>
+                    <input type="password" class="form-control" placeholder="PWD" style="width: 600px; margin: auto" name="password">
+                </li>
+                <li>
+                    <c:if test="${not empty errorMsg}">
+                        ${errorMsg}
+                    </c:if>
+                </li>
+                <li>
+                    <button type="submit" class="btn btn-secondary">로그인</button>
+                </li>
+                </form>
+                <button type="button" onclick="location.href='/signup'" class="btn btn-secondary">회원가입</button>
+            </ul>
+        </div>
+    </div>
+</div>
 </body>
 </html>

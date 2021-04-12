@@ -1,4 +1,4 @@
-package com.study.boot.payload.request;
+package com.study.boot.payload.response;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CategoryDto {
 
-    @NotNull
     private Long categoryNo;
-
-    @NotNull
     private String categoryName;
 }

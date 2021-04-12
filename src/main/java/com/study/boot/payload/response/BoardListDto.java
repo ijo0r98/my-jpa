@@ -1,4 +1,4 @@
-package com.study.boot.payload.request;
+package com.study.boot.payload.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

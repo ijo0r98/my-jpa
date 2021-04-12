@@ -15,8 +15,10 @@ public class BoardRequest {
 
     @NotNull
     private String boardTitle;
+
     @NotNull
     private String boardContent;
+
     @NotNull
     private Long categoryNo;
 

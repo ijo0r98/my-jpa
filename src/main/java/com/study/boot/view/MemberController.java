@@ -8,10 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@RequiredArgsConstructor
 public class MemberController {
-
-    private final MemberService memberService;
 
     // 회원가입 폼
     @GetMapping("/signup")
@@ -20,9 +17,9 @@ public class MemberController {
     }
 
 
-    // 사용자 페이지 메인
+    // 사용자 페이지 메인 -게시판리스트
     @GetMapping("/member")
-    public String memberHome(Authentication authentication, ModelMap modelMap) {
+    public String memberHome() {
 
         return "home";
     }

@@ -9,16 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@AllArgsConstructor
 @RequestMapping("/board")
 public class BoardController {
-
-    private final BoardService boardService;
-
-    @GetMapping("list")
-    public String boardList(ModelMap modelMap) throws Exception {
-        return "/board/list";
-    }
 
     @GetMapping("register")
     public String boardRegisterForm() throws Exception {
