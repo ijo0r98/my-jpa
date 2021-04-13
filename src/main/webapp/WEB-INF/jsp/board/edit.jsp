@@ -5,39 +5,88 @@
 
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <h4>게시글 수정</h4>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>By Juran</title>
+    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
 </head>
 <sec:authorize access="isAuthenticated()">
-    <body>
-    <div>
-        <table>
-            <tr>
-                <td>제목 :</td>
-                <td id="boardTitle"/>
-            </tr>
-            <tr>
-                <td>카테고리 :</td>
-                <td><select id="selectCategory"/></td>
-            </tr>
-            <tr>
-                <td>작성자 :</td>
-                <td id="memberNm"/>
+    <sec:csrfMetaTags />
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <sec:authentication property="principal" var="username"/>
+            <a class="navbar-brand" href="/member">${username}님 반갑습니다!</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/member">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mypage</a>
+                    </li>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Admin</a>
+                        </li>
+                    </sec:authorize>
+                    <form action="/logout" method="POST">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        <sec:authorize access="isAuthenticated()">
+                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">LOGOUT</button>
+                        </sec:authorize>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-            </tr>
-            <tr>
-                <td>내용 :</td>
-                <td id="boardContent"/>
-            </tr>
-        </table>
-    </div><br/>
-    <div>
-        <button type="button" id="btnBoardEdit">수정</button>
-        <button type="button" id="btnCancelEdit">취소</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <h1 class="mt-5"></h1>
+                <p class="lead">게시글 수정</p>
+                <ul class="list-unstyled">
+                    <fieldset>
+                        <legend></legend>
+                        <div class="form-group">
+                            <label for="boardTitle">제목</label>
+                            <input type="text" class="form-control" id="boardTitle">
+                        </div>
+                        <div class="form-group row">
+                            <label for="memberNm" class="col-sm-2 col-form-label">작성자</label>
+                           <div class="col-sm-10">
+                                <p type="text" readonly="" class="form-control-plaintext" id="memberNm">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="selectCategory">카테고리</label>
+                            <select class="form-control" id="selectCategory">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="boardContent">내용</label>
+                            <textarea class="form-control" id="boardContent" rows="3"></textarea>
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <button type="button" id="btnBoardEdit" class="btn btn-secondary">수정</button>
+                        <button type="button" id="btnCancelEdit" class="btn btn-secondary">취소</button>
+                    </div>
+                </ul>
+            </div>
+        </div>
     </div>
-    </body>
 </sec:authorize>
 
 <script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
@@ -54,16 +103,9 @@
             dataType: 'json',
             success: function (result) {
                 // console.log(result)
-                $('#boardTitle').append($('<input />', {
-                    id: 'newBoardTitle',
-                    value: result.data.boardInfo.boardTitle
-                }));
-                $('#memberNm').text(result.data.boardInfo.member.memberNm);
-                $('#boardContent').append($('<textarea />', {
-                    id: 'newBoardContent',
-                    type: 'text',
-                    text: result.data.boardInfo.boardContent
-                }));
+                $('#boardTitle').attr('value', result.data.boardInfo.boardTitle)
+                $('#memberNm').html(result.data.boardInfo.member.memberNm);
+                $('#boardContent').html(result.data.boardInfo.boardContent)
 
                 addSelectCategory(result.data.boardInfo.category.categoryNo);
 
@@ -82,8 +124,8 @@
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify({
-                            'boardTitle': $('#newBoardTitle').val(),
-                            'boardContent': $('#newBoardContent').val(),
+                            'boardTitle': $('#boardTitle').val(),
+                            'boardContent': $('#boardContent').val(),
                             'categoryNo': $('#selectCategory option:selected').val()
                         }),
                         beforeSend: function (xhr) {

@@ -7,14 +7,14 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-
+    <title>By Juran</title>
     <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <sec:authentication property="principal" var="username"/>
-            <a class="navbar-brand">${username}님 반갑습니다!</a>
+            <a class="navbar-brand" href="/member">${username}님 반갑습니다!</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -53,15 +53,15 @@
             <div class="list-group">
                 <ul class="list-group" id="categoryList">
                     <li class="list-group-item list-group-item-action active">
-                        Cras justo odio
+                        category1
                         <span class="badge badge-primary badge-pill">14</span>
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        Dapibus ac facilisis in
+                        category2
                         <span class="badge badge-primary badge-pill">2</span>
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        Morbi leo risus
+                        category3
                         <span class="badge badge-primary badge-pill">1</span>
                     </li>
                 </ul>
@@ -78,6 +78,7 @@
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
+                <button class="btn btn-secondary" id="registerBoard">새 글 등록</button>
                 <table class="table">
                     <colgroup>
                         <col style="width:30%" />

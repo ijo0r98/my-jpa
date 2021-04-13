@@ -5,36 +5,87 @@
 
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <h4>게시글 등록</h4>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>By Juran</title>
+    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
 </head>
 <sec:authorize access="isAuthenticated()">
-<body>
-    <div>
-        <label>제목</label>
-        <div>
-            <input type="text" name="title" id="boardTitle" />
+    <sec:csrfMetaTags />
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <sec:authentication property="principal" var="username"/>
+            <a class="navbar-brand" href="/member">${username}님 반갑습니다!</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/member">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mypage</a>
+                    </li>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Admin</a>
+                        </li>
+                    </sec:authorize>
+                    <form action="/logout" method="POST">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        <sec:authorize access="isAuthenticated()">
+                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">LOGOUT</button>
+                        </sec:authorize>
+                    </form>
+                </ul>
+            </div>
         </div>
-    </div><br/>
-    <div>
-        <label>카테고리</label>
-        <div>
-            <select id="selectCategory"></select>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <h1 class="mt-5"></h1>
+                <p class="lead">새 글 등록</p>
+                <ul class="list-unstyled">
+                    <fieldset>
+                        <legend></legend>
+                        <div class="form-group">
+                            <label for="boardTitle">제목</label>
+                            <input type="text" class="form-control" id="boardTitle" placeholder="Title">
+                        </div>
+                        <div class="form-group">
+                            <label for="selectCategory">카테고리</label>
+                            <select class="form-control" id="selectCategory">
+<%--                                <option>1</option>--%>
+<%--                                <option>2</option>--%>
+<%--                                <option>3</option>--%>
+<%--                                <option>4</option>--%>
+<%--                                <option>5</option>--%>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="boardContent">내용</label>
+                            <textarea class="form-control" id="boardContent" rows="3"></textarea>
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <button type="button" id="btnBoarddRegister" class="btn btn-secondary">등록</button>
+                        <button type="button" id="btnCancelRegister" class="btn btn-secondary">취소</button>
+                    </div>
+                </ul>
+            </div>
         </div>
-    </div><br/>
-    <div>
-        <label>내용</label>
-        <div>
-            <textarea name="content" id="boardContent"></textarea>
-        </div>
-    </div><br/>
-    <div>
-        <button type="button" id="btnBoarddRegister">등록</button>
-        <button type="button" id="btnCancelRegister">취소</button>
     </div>
-</body>
 </sec:authorize>
 
 <script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
@@ -78,7 +129,7 @@
                             xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
                         },
                         success: function (result) {
-                            location.href = '/board/list';
+                            location.href = '/member';
                         }, error: function (error) {
                             console.log(error)
                         }
