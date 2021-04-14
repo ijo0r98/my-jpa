@@ -53,17 +53,17 @@
             <div class="list-group">
                 <ul class="list-group" id="categoryList">
                     <li class="list-group-item list-group-item-action active">
-                        category1
+                        전체
                         <span class="badge badge-primary badge-pill">14</span>
                     </li>
-                    <li class="list-group-item list-group-item-action">
-                        category2
-                        <span class="badge badge-primary badge-pill">2</span>
-                    </li>
-                    <li class="list-group-item list-group-item-action">
-                        category3
-                        <span class="badge badge-primary badge-pill">1</span>
-                    </li>
+<%--                    <li class="list-group-item list-group-item-action">--%>
+<%--                        category2--%>
+<%--                        <span class="badge badge-primary badge-pill">2</span>--%>
+<%--                    </li>--%>
+<%--                    <li class="list-group-item list-group-item-action">--%>
+<%--                        category3--%>
+<%--                        <span class="badge badge-primary badge-pill">1</span>--%>
+<%--                    </li>--%>
                 </ul>
             </div>
         </div>
@@ -78,6 +78,7 @@
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
+                <p class="lead"> adlkf</p>
                 <button class="btn btn-secondary" id="registerBoard">새 글 등록</button>
                 <table class="table">
                     <colgroup>
@@ -172,10 +173,25 @@
             },
             success: function (result) {
                 console.log('success');
-                // $('#categoryList').append()
 
+                $.each(result.data.categoryList, function(key, obj) {
+                    $('#categoryList').append($('<li />', {
+                        class: 'list-group-item list-group-item-action',
+                        text: obj.categoryName,
+                        value: obj.categoryNo,
+                        click: function() {
+                            $(this).attr('class', 'list-group-item list-group-item-action active');
+                            $(this).siblings().attr('class', 'list-group-item list-group-item-action');
+
+
+                        }
+                    }).append($('<span />', {
+                        class: 'badge badge-primary badge-pill',
+                        text: obj.boardCnt
+                    })));
+                });
             }, error: function(error) {
-                console.log(error)
+                console.log('error')
             }
         });
 

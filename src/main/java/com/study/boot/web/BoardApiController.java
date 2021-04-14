@@ -35,7 +35,7 @@ public class BoardApiController {
     public ResponseEntity<?> boardRegister(@Validated @RequestBody BoardRequest boardRequest, Authentication authentication) throws Exception {
 
         Member member = memberService.loadUserByUsername(authentication.getPrincipal().toString());
-        Category category = categoryService.findByCategoryNo(boardRequest.getCategoryNo()).get();
+        Category category = categoryService.findByCategoryNo(boardRequest.getCategoryNo());
         boardService.registerBoard(boardRequest, member, category);
 
         ApiResponse apiResponse = new ApiResponse(true, "게시물 등록");
