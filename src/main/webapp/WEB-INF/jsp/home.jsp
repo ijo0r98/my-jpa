@@ -14,19 +14,19 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <sec:authentication property="principal" var="username"/>
-            <a class="navbar-brand" href="/member">${username}님 반갑습니다!</a>
+            <a class="navbar-brand" href="/">${username}님 반갑습니다!</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/member">Home
+                        <a class="nav-link" href="/">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mypage</a>
+                        <a class="nav-link" href="/mypage">Mypage</a>
                     </li>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <li class="nav-item">
@@ -52,9 +52,9 @@
             <h1 class="my-4">게시판</h1>
             <div class="list-group">
                 <ul class="list-group" id="categoryList">
-                    <li class="list-group-item list-group-item-action active">
+                    <li class="list-group-item list-group-item-action active" id="boardAll">
                         전체
-                        <span class="badge badge-primary badge-pill">14</span>
+                        <span class="badge badge-primary badge-pill" id="boardTotalCnt"></span>
                     </li>
 <%--                    <li class="list-group-item list-group-item-action">--%>
 <%--                        category2--%>
@@ -78,7 +78,6 @@
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
-                <p class="lead"> adlkf</p>
                 <button class="btn btn-secondary" id="registerBoard">새 글 등록</button>
                 <table class="table">
                     <colgroup>
@@ -119,44 +118,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $.ajax({
-            url: baseUrl + '/api/board/list',
-            type: 'GET',
-            contentType: 'application/json',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-            },
-            success: function (result) {
-                console.log('success');
-
-                $.each(result.data.boardList, function (key, obj) {
-                    $('#tBodyBoardList').append($('<tr />', {
-                        mouseover: function () {
-                            $(this).css("background-color", "#f4f4f4");
-                        },
-                        mouseout: function () {
-                            $(this).css("background-color", "#ffffff");
-                        },
-                        click: function () {
-                            // console.log(obj.boardNo);
-                            location.href = '/board/detail/' + obj.boardNo;
-                        }
-                    }).append($('<td />', {
-                        text: obj.boardTitle
-                    })).append($('<td />', {
-                        text: obj.member.memberNm
-                    })).append($('<td />', {
-                        text: obj.regDate
-                    })).append($('<td />', {
-                        text: obj.boardViewCnt
-                    })).append($('<td />', {
-                        text: obj.boardRcmdCnt
-                    })));
-                });
-            }, error: function (error) {
-                console.log('error' + error);
-            }
-        });
+        //처음 화면 전체 게시물 리스트 출력
+        addBoardList('all');
 
         $('#registerBoard').on({
             click: function () {
@@ -164,6 +127,7 @@
             }
         });
 
+        //카테고리 리스트
         $.ajax({
             url: baseUrl + '/api/category/list',
             type: 'GET',
@@ -182,8 +146,7 @@
                         click: function() {
                             $(this).attr('class', 'list-group-item list-group-item-action active');
                             $(this).siblings().attr('class', 'list-group-item list-group-item-action');
-
-
+                            addBoardList($(this).val());
                         }
                     }).append($('<span />', {
                         class: 'badge badge-primary badge-pill',
@@ -195,6 +158,100 @@
             }
         });
 
+        //카테고리 전체 탭
+        $('#boardAll').off('click').on({
+            click: function() {
+                $(this).attr('class', 'list-group-item list-group-item-action active');
+                $(this).siblings().attr('class', 'list-group-item list-group-item-action');
+
+                addBoardList('all');
+            }
+        })
+
     });
+
+    function addBoardList(value) {
+        if(value === 'all') {
+            //전체 탭
+            $.ajax({
+                url: baseUrl + '/api/board/list',
+                type: 'GET',
+                contentType: 'application/json',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                },
+                success: function (result) {
+                    console.log('success');
+
+                    $('#tBodyBoardList').empty();
+                    $.each(result.data.boardList, function (key, obj) {
+                        $('#tBodyBoardList').append($('<tr />', {
+                            mouseover: function () {
+                                $(this).css("background-color", "#f4f4f4");
+                            },
+                            mouseout: function () {
+                                $(this).css("background-color", "#ffffff");
+                            },
+                            click: function () {
+                                location.href = '/board/detail/' + obj.boardNo;
+                            }
+                        }).append($('<td />', {
+                            text: obj.boardTitle
+                        })).append($('<td />', {
+                            text: obj.member.memberNm
+                        })).append($('<td />', {
+                            text: obj.regDate
+                        })).append($('<td />', {
+                            text: obj.boardViewCnt
+                        })).append($('<td />', {
+                            text: obj.boardRcmdCnt
+                        })));
+                    });
+                }, error: function (error) {
+                    console.log('error' + error);
+                }
+            });
+        } else {
+            $.ajax({
+                url: baseUrl + '/api/board/list/' + value,
+                type: 'GET',
+                contentType: 'application/json',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                },
+                success: function (result) {
+                    console.log('success');
+
+                    $('#tBodyBoardList').empty();
+                    $.each(result.data.boardList, function (key, obj) {
+                        $('#tBodyBoardList').append($('<tr />', {
+                            mouseover: function () {
+                                $(this).css("background-color", "#f4f4f4");
+                            },
+                            mouseout: function () {
+                                $(this).css("background-color", "#ffffff");
+                            },
+                            click: function () {
+                                // console.log(obj.boardNo);
+                                location.href = '/board/detail/' + obj.boardNo;
+                            }
+                        }).append($('<td />', {
+                            text: obj.boardTitle
+                        })).append($('<td />', {
+                            text: obj.memberName
+                        })).append($('<td />', {
+                            text: obj.regDate
+                        })).append($('<td />', {
+                            text: obj.boardViewCnt
+                        })).append($('<td />', {
+                            text: obj.boardRcmdCnt
+                        })));
+                    });
+                }, error: function (error) {
+                    console.log('error' + error);
+                }
+            });
+        }
+    }
 </script>
 </html>

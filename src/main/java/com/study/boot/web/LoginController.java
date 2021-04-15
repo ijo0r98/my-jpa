@@ -10,13 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
-//    @GetMapping("/")
-//    public String main() {
-//        return "test";
-//    }
-
     // 처음 진입 시 로그인 폼
-    @GetMapping("/")
+    @GetMapping("/login")
     public String loginForm(@RequestParam(value = "error", required = false) String error,
                             Model model) {
         return "login";

@@ -6,6 +6,7 @@ import com.study.boot.board.repository.BoardRepository;
 import com.study.boot.board.repository.CategoryRepository;
 import com.study.boot.member.domain.Member;
 import com.study.boot.payload.request.BoardRequest;
+import com.study.boot.payload.response.BoardDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
@@ -25,13 +25,13 @@ public class BoardService {
 
 
     @Transactional(readOnly = true)
-    public List<Board> findAllBoard() {
+    public List<Board> findBoardAll() {
         return boardRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     public Board findBoardByNo(Long boardNo) {
-        return  boardRepository.findById(boardNo).orElseThrow(() -> new NoSuchElementException());
+        return  boardRepository.getOne(boardNo);
     }
 
     @Transactional
@@ -59,5 +59,10 @@ public class BoardService {
     @Transactional
     public void deleteByNo(Long boardNo) {
         boardRepository.deleteById(boardNo);
+    }
+
+    @Transactional
+    public List<BoardDto> findBoardByCategory(long categoryNo) {
+        return boardRepository.findBoardAllByCategoryNo(categoryNo);
     }
 }

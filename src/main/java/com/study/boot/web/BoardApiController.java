@@ -26,7 +26,7 @@ public class BoardApiController {
     public ResponseEntity<?> boardListAll() throws Exception {
 
         ApiResponse apiResponse = new ApiResponse(true, "게시물 전체 조회");
-        apiResponse.putData("boardList", boardService.findAllBoard());
+        apiResponse.putData("boardList", boardService.findBoardAll());
 
         return ResponseEntity.ok(apiResponse);
     }
@@ -66,6 +66,14 @@ public class BoardApiController {
 
         boardService.deleteByNo(boardNo);
         ApiResponse apiResponse = new ApiResponse(true, "게시물 삭제");
+
+        return ResponseEntity.ok(apiResponse);
+    }
+
+    @GetMapping("list/{categoryNo}")
+    public ResponseEntity<?> boardListByCategory(@PathVariable(name = "categoryNo") long categoryNo) {
+        ApiResponse apiResponse = new ApiResponse(true, "카테고리별 게시물 조회");
+        apiResponse.putData("boardList", boardService.findBoardByCategory(categoryNo));
 
         return ResponseEntity.ok(apiResponse);
     }

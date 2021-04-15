@@ -24,7 +24,7 @@ public class CategoryApiController {
     @GetMapping("list")
     public ResponseEntity<?> categoryListAll() {
 
-        ApiResponse apiResponse = new ApiResponse(true, "카테고리 리스트 조회 완료");
+        ApiResponse apiResponse = new ApiResponse(true, "카테고리 리스트 조회");
         apiResponse.putData("categoryList", categoryService.findCategoryCntAll());
 
         return ResponseEntity.ok(apiResponse);

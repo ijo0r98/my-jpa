@@ -21,19 +21,19 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <sec:authentication property="principal" var="username"/>
-            <a class="navbar-brand" href="/member">${username}님 반갑습니다!</a>
+            <a class="navbar-brand" href="/">${username}님 반갑습니다!</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/member">Home
+                        <a class="nav-link" href="/">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mypage</a>
+                        <a class="nav-link" href="/mypage">Mypage</a>
                     </li>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <li class="nav-item">
@@ -129,7 +129,7 @@
                             xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
                         },
                         success: function (result) {
-                            location.href = '/member';
+                            location.href = '/';
                         }, error: function (error) {
                             console.log(error)
                         }
@@ -143,7 +143,7 @@
             click: function () {
                 history.back();
             }
-        })
+        });
 
 
     });

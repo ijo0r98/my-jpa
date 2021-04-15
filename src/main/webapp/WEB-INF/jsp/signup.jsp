@@ -47,8 +47,12 @@
                     <div class="form-group">
                         <label for="memberId">아이디</label>
                         <input type="text" class="form-control" id="memberId" aria-describedby="idHelp"
-                               placeholder="Enter email">
-                        <small id="idHelp" class="form-text text-muted">아이디는 변경이 불가합니다.</small>
+                               placeholder="Id">
+                        <d id="idAvailable" class="valid-feedback" style="display: none;"></d>
+                        <d id="idNotAvailable" class="invalid-feedback" style="display: none;"></d>
+<%--                        <br />--%>
+                        <button type="button" class="btn btn-primary btn-sm" id="btnCheckDuplication">중복확인</button>
+
                     </div>
                     <div class="form-group">
                         <label for="memberEmail">이메일 주소</label>
@@ -74,7 +78,7 @@
 <script type="text/javascript" src="<c:url value="../../js/jquery-1.12.4.js"/> "></script>
 <script type="text/javascript" src="<c:url value="../../js/common.js"/> "></script>
 <script type="text/javascript">
-    var csrfParameter = '${_csrf.parameterName}';
+    var csrfParameter = '${_csrf.parameㅏㅏterName}';
     var csrfToken = '${_csrf.token}';
 
     $(document).ready(function () {
@@ -100,6 +104,31 @@
                         alert('로그인 후 서비스를 이용할 수 있습니다.');
                     }, error: function(error) {
                         console.log('error');
+                    }
+                });
+            }
+        });
+
+        $('#btnCheckDuplication').off('click').on({
+            click: function () {
+                $.ajax({
+                    url: baseUrl + '/api/member/id/check',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    headers: {
+                        "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
+                    },
+                    data: {
+                        memberId: $('#memberId').val()
+                    },
+                    success: function (result) {
+                        // console.log(result);
+                        $('#idNotAvailable').hide();
+                        $('#idAvailable').show().text(result).append($('<br />'));
+                    }, error: function(error) {
+                        // console.log(error);
+                        $('#idAvailable').hide();
+                        $('#idNotAvailable').show().text('이미 사용중인 아이디 입니다.').append($('<br />'));
                     }
                 });
             }

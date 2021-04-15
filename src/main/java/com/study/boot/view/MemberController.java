@@ -10,18 +10,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MemberController {
 
+    // 메인페이지
+    @GetMapping("/")
+    public String home() {
+        return "home";
+    }
+
     // 회원가입 폼
     @GetMapping("/signup")
     public String signupForm() {
         return "signup";
     }
 
-
-    // 사용자 페이지 메인 -게시판리스트
-    @GetMapping("/member")
-    public String memberHome() {
-
-        return "home";
+    // 마이페이지 메인
+    @GetMapping("/mypage")
+    public String myPage() {
+        return "member/mypage";
     }
 
     // 개인정보 수정

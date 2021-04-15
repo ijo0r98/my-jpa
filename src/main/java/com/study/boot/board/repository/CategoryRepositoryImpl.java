@@ -34,10 +34,6 @@ public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
                 .from(category)
                 .fetch();
 
-        for(CategoryListDto dto: categoryListDtos) {
-            System.out.println(dto);
-        }
-
         return categoryListDtos;
     }
 }

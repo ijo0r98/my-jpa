@@ -3,8 +3,10 @@ package com.study.boot.member.service;
 import com.study.boot.member.domain.Member;
 import com.study.boot.member.domain.Role;
 import com.study.boot.member.repository.MemberRepository;
+import com.study.boot.payload.exception.BadRequestException;
 import com.study.boot.payload.request.SignupRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
@@ -24,7 +27,12 @@ public class MemberService implements UserDetailsService {
     @Override
     public Member loadUserByUsername(String username) throws UsernameNotFoundException {
         return memberRepository.findByMemberId(username)
-                .orElseThrow(()->new UsernameNotFoundException("no member - " + username));
+                .orElseThrow(()->new UsernameNotFoundException("Not Found by " + username));
+    }
+
+    @Transactional
+    public boolean existsByMemberId(String memberId){
+        return memberRepository.existsByMemberId(memberId);
     }
 
     @Transactional
@@ -44,10 +52,6 @@ public class MemberService implements UserDetailsService {
         member.setUpdateDate(now);
 
         memberRepository.save(member);
-    }
-
-    public Member findById(Long memberNo) {
-        return memberRepository.findById(memberNo).orElseThrow(NoSuchFieldError::new);
     }
 
 }
