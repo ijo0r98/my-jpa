@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/mypage">Mypage</a>
+                    <a class="nav-link" href="/member/mypage">Mypage</a>
                 </li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li class="nav-item">
@@ -58,7 +58,7 @@
                     <li class="list-group-item list-group-item-action">
                         댓글 관리
                     </li>
-                    <li class="list-group-item list-group-item-action">
+                    <li class="list-group-item list-group-item-action" onClick="location.href='/member/edit'">
                         정보 수정
                     </li>
                 </ul>

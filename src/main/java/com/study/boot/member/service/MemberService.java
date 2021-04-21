@@ -5,8 +5,10 @@ import com.study.boot.member.domain.Role;
 import com.study.boot.member.repository.MemberRepository;
 import com.study.boot.payload.exception.BadRequestException;
 import com.study.boot.payload.request.SignupRequest;
+import com.study.boot.payload.response.MemberInfoDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -52,6 +54,17 @@ public class MemberService implements UserDetailsService {
         member.setUpdateDate(now);
 
         memberRepository.save(member);
+    }
+
+    @Transactional
+    public boolean checkMemberPw(String inputPw, String memberId) {
+        return passwordEncoder.matches(inputPw, loadUserByUsername(memberId).getMemberPw());
+    }
+
+    @Transactional
+    public MemberInfoDto findMemberInfoById(long memberNo) {
+        Member member = memberRepository.getOne(memberNo);
+        return new MemberInfoDto(member);
     }
 
 }

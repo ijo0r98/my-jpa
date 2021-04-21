@@ -23,7 +23,7 @@ public class MemberController {
     }
 
     // 마이페이지 메인
-    @GetMapping("/mypage")
+    @GetMapping("/member/mypage")
     public String myPage() {
         return "member/mypage";
     }

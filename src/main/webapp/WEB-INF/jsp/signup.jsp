@@ -135,8 +135,9 @@
                                 }
                             });
                         }, error: function (error) {
+                            // console.log(error)
                             $('#idAvailable').hide();
-                            $('#idNotAvailable').show().text('이미 사용중인 아이디 입니다.').append($('<br />'));
+                            $('#idNotAvailable').show().text(error.responseJSON['message']).append($('<br />'));
                             $('#memberId').focus();
                         }
                     });
@@ -163,7 +164,7 @@
                     }, error: function(error) {
                         // console.log(error);
                         $('#idAvailable').hide();
-                        $('#idNotAvailable').show().text('이미 사용중인 아이디 입니다.').append($('<br />'));
+                        $('#idNotAvailable').show().text(error.responseJSON['message']).append($('<br />'));
                     }
                 });
             }
