@@ -78,34 +78,69 @@
 <script type="text/javascript" src="<c:url value="../../js/jquery-1.12.4.js"/> "></script>
 <script type="text/javascript" src="<c:url value="../../js/common.js"/> "></script>
 <script type="text/javascript">
-    var csrfParameter = '${_csrf.parameㅏㅏterName}';
+    var csrfParameter = '${_csrf.parameterName}';
     var csrfToken = '${_csrf.token}';
 
     $(document).ready(function () {
         $('#btnSignup').on({
             click: function () {
-                $.ajax({
-                    url: baseUrl + '/api/member/signup',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    headers: {
-                        "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
-                    },
-                    data: JSON.stringify({
-                        memberId: $('#memberId').val(),
-                        memberNm: $('#memberName').val(),
-                        memberPw: $('#memberPw').val(),
-                        memberEmail: $('#memberEmail').val(),
-                        memberTell: $('#memberTell').val()
-                    }),
-                    success: function (result) {
-                        console.log('success');
-                        location.href = '/login';
-                        alert('로그인 후 서비스를 이용할 수 있습니다.');
-                    }, error: function(error) {
-                        console.log('error');
-                    }
-                });
+                // console.log($('#memberId').val())
+                if($('#memberName').val() == ''){
+                  alert('이름을 입력해 주세요.');
+                  $('#memberName').focus();
+                } else if($('#memberId').val() == ''){
+                    alert('아이디를 입력해 주세요.');
+                    $('#memberId').focus();
+                } else if($('#memberEmail').val() == ''){
+                    alert('이메일을 입력해 주세요.');
+                    $('#memberEmail').focus();
+                } else if($('#memberPw').val() == ''){
+                    alert('비밀번호 입력해 주세요.');
+                    $('#memberPw').focus();
+                } else if($('#memberTell').val() == ''){
+                    alert('전화번호를 입력해 주세요.');
+                    $('#memberTell').focus();
+                } else {
+                    $.ajax({
+                        url: baseUrl + '/api/member/id/check',
+                        type: 'GET',
+                        contentType: 'application/json',
+                        headers: {
+                            "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
+                        },
+                        data: {
+                            memberId: $('#memberId').val()
+                        },
+                        success: function (result) {
+                            $.ajax({
+                                url: baseUrl + '/api/member/signup',
+                                type: 'POST',
+                                contentType: 'application/json',
+                                headers: {
+                                    "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
+                                },
+                                data: JSON.stringify({
+                                    memberId: $('#memberId').val(),
+                                    memberNm: $('#memberName').val(),
+                                    memberPw: $('#memberPw').val(),
+                                    memberEmail: $('#memberEmail').val(),
+                                    memberTell: $('#memberTell').val()
+                                }),
+                                success: function (result) {
+                                    console.log('success');
+                                    location.href = '/login';
+                                    alert('로그인 후 서비스를 이용할 수 있습니다.');
+                                }, error: function (error) {
+                                    console.log('error');
+                                }
+                            });
+                        }, error: function (error) {
+                            $('#idAvailable').hide();
+                            $('#idNotAvailable').show().text('이미 사용중인 아이디 입니다.').append($('<br />'));
+                            $('#memberId').focus();
+                        }
+                    });
+                }
             }
         });
 

@@ -1,4 +1,4 @@
-package com.study.boot.payload.response;
+package com.study.boot.payload.exception;
 
 import com.study.boot.payload.exception.ResourceNotFoundException;
 import com.study.boot.payload.exception.ResponseError;

@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @RestController
@@ -20,7 +23,7 @@ public class MemberApiController {
 
     // 회원가입
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody SignupRequest signupRequest) throws Exception {
+    public ResponseEntity<?> signUp(@Valid @RequestBody SignupRequest signupRequest) throws Exception {
 
         memberService.signUpMember(signupRequest);
         ApiResponse apiResponse = new ApiResponse(true, "회원가입 완료");
