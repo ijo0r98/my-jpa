@@ -20,14 +20,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/member/mypage">Mypage</a>
-                    </li>
+                    <sec:authorize access="isAuthenticated()">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/member/mypage">Mypage</a>
+                        </li>
+                    </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <li class="nav-item">
                             <a class="nav-link" href="#">Admin</a>
@@ -37,6 +39,9 @@
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         <sec:authorize access="isAuthenticated()">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">LOGOUT</button>
+                        </sec:authorize>
+                        <sec:authorize access="isAnonymous()">
+                            <button type="button" class="btn btn-secondary my-2 my-sm-0" onclick="location.href='/login'">LOGIN</button>
                         </sec:authorize>
                     </form>
                 </ul>
@@ -75,6 +80,8 @@
             <div class="row">
                 <sec:authorize access="isAnonymous()">
                     로그인 후 이용 가능합니다.
+                    <br/>
+                    상단의 로그인 버튼을 눌러주세요.
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
