@@ -80,8 +80,8 @@
                         </div>
                     </fieldset>
                     <div class="form-group">
-                        <button type="button" id="btnBoardEdit" class="btn btn-secondary">수정</button>
-                        <button type="button" id="btnCancelEdit" class="btn btn-secondary">취소</button>
+                        <button type="button" id="btnEditBoard" class="btn btn-secondary" style="display: none">수정</button>
+                        <button type="button" id="btnCancelEdit" class="btn btn-secondary" style="display: none">취소</button>
                     </div>
                 </ul>
             </div>
@@ -115,7 +115,7 @@
         });
 
         //수정 버튼
-        $('#btnBoardEdit').on({
+        $('#btnEditBoard').on({
             click: function () {
                 // console.log($('#selectCategory option:selected').val());
                 if(confirm('수정하시겠습니까?') == true) {
@@ -146,9 +146,7 @@
             click: function () {
                 history.back();
             }
-        })
-
-
+        });
     });
 
     function addSelectCategory(categoryNo) {

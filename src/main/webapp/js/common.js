@@ -66,3 +66,8 @@ function checkPassword(value) {
 
     return pw_pattern2.test(value);
 }
+
+// 날짜 substring
+function dateFormat(value) {
+    return value.substr(0, 10);
+}

@@ -11,8 +11,14 @@
     <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
 </head>
 <body>
+<style>
+    table th{
+        text-align: center;
+    }
+</style>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
+            <sec:csrfMetaTags />
             <sec:authentication property="principal" var="username"/>
             <a class="navbar-brand" href="/">${username}님 반갑습니다!</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,11 +128,12 @@
 <script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
 <script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
 <script type="text/javascript" src="<c:url value="/js/common.js"/> "></script>
+<script type="text/javascript" src="<c:url value="/js/board.js"/> "></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
-        //처음 화면 전체 게시물 리스트 출력
-        addBoardList('all');
+        // 처음 화면 전체 게시물 리스트 출력
+        addBoardListByCategory('all');
 
         $('#registerBoard').on({
             click: function () {
@@ -134,36 +141,7 @@
             }
         });
 
-        //카테고리 리스트
-        $.ajax({
-            url: baseUrl + '/api/category/list',
-            type: 'GET',
-            contentType: 'application/json',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-            },
-            success: function (result) {
-                console.log('success');
-
-                $.each(result.data.categoryList, function(key, obj) {
-                    $('#categoryList').append($('<li />', {
-                        class: 'list-group-item list-group-item-action',
-                        text: obj.categoryName,
-                        value: obj.categoryNo,
-                        click: function() {
-                            $(this).attr('class', 'list-group-item list-group-item-action active');
-                            $(this).siblings().attr('class', 'list-group-item list-group-item-action');
-                            addBoardList($(this).val());
-                        }
-                    }).append($('<span />', {
-                        class: 'badge badge-primary badge-pill',
-                        text: obj.boardCnt
-                    })));
-                });
-            }, error: function(error) {
-                console.log('error')
-            }
-        });
+        addCategoryList('list');
 
         //카테고리 전체 탭
         $('#boardAll').off('click').on({
@@ -171,94 +149,10 @@
                 $(this).attr('class', 'list-group-item list-group-item-action active');
                 $(this).siblings().attr('class', 'list-group-item list-group-item-action');
 
-                addBoardList('all');
+                addBoardListByCategory('all');
             }
         })
-
     });
 
-    function addBoardList(value) {
-        if(value === 'all') {
-            //전체 탭
-            $.ajax({
-                url: baseUrl + '/api/board/list',
-                type: 'GET',
-                contentType: 'application/json',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-                },
-                success: function (result) {
-                    console.log('success');
-
-                    $('#tBodyBoardList').empty();
-                    $.each(result.data.boardList, function (key, obj) {
-                        $('#tBodyBoardList').append($('<tr />', {
-                            mouseover: function () {
-                                $(this).css("background-color", "#f4f4f4");
-                            },
-                            mouseout: function () {
-                                $(this).css("background-color", "#ffffff");
-                            },
-                            click: function () {
-                                location.href = '/board/detail/' + obj.boardNo;
-                            }
-                        }).append($('<td />', {
-                            text: obj.boardTitle
-                        })).append($('<td />', {
-                            text: obj.member.memberNm
-                        })).append($('<td />', {
-                            text: obj.regDate
-                        })).append($('<td />', {
-                            text: obj.boardViewCnt
-                        })).append($('<td />', {
-                            text: obj.boardRcmdCnt
-                        })));
-                    });
-                }, error: function (error) {
-                    console.log('error' + error);
-                }
-            });
-        } else {
-            $.ajax({
-                url: baseUrl + '/api/board/list/' + value,
-                type: 'GET',
-                contentType: 'application/json',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-                },
-                success: function (result) {
-                    console.log('success');
-
-                    $('#tBodyBoardList').empty();
-                    $.each(result.data.boardList, function (key, obj) {
-                        $('#tBodyBoardList').append($('<tr />', {
-                            mouseover: function () {
-                                $(this).css("background-color", "#f4f4f4");
-                            },
-                            mouseout: function () {
-                                $(this).css("background-color", "#ffffff");
-                            },
-                            click: function () {
-                                // console.log(obj.boardNo);
-                                location.href = '/board/detail/' + obj.boardNo;
-                            }
-                        }).append($('<td />', {
-                            text: obj.boardTitle
-                        })).append($('<td />', {
-                            text: obj.memberName
-                        })).append($('<td />', {
-                            text: obj.regDate
-                        })).append($('<td />', {
-                            text: obj.boardViewCnt
-                        })).append($('<td />', {
-                            text: obj.boardRcmdCnt
-                        })));
-                    });
-                }, error: function (error) {
-                    console.log('error' + error);
-                }
-            });
-        }
-    }
 </script>
 </html>

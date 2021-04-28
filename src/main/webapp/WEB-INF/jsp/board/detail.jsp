@@ -26,6 +26,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
+        <sec:csrfMetaTags />
         <sec:authentication property="principal" var="username"/>
         <a class="navbar-brand" href="/">${username}님 반갑습니다!</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,28 +64,21 @@
 
     <div class="row">
 
-        <div class="col-lg-3">
-            <h1 class="my-4">게시판</h1>
-            <div class="list-group">
-                <ul class="list-group" id="categoryList">
-                    <li class="list-group-item list-group-item-action active">
-                        category1
-                        <span class="badge badge-primary badge-pill">14</span>
-                    </li>
-                    <li class="list-group-item list-group-item-action">
-                        category2
-                        <span class="badge badge-primary badge-pill">2</span>
-                    </li>
-                    <li class="list-group-item list-group-item-action">
-                        category3
-                        <span class="badge badge-primary badge-pill">1</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<%--        <div class="col-lg-3">--%>
+<%--            <h1 class="my-4">게시판</h1>--%>
+<%--            <div class="list-group">--%>
+<%--                <ul class="list-group" id="categoryList">--%>
+<%--                    <li class="list-group-item list-group-item-action active" id="boardAll">--%>
+<%--                        전체--%>
+<%--                        <span class="badge badge-primary badge-pill" id="boardTotalCnt"></span>--%>
+<%--                    </li>--%>
+<%--                </ul>--%>
+<%--                </ul>--%>
+<%--            </div>--%>
+<%--        </div>--%>
         <!-- /.col-lg-3 -->
 
-        <div class="col-lg-9">
+        <div class="col-lg-12">
 
             <div class="card mt-4">
 <%--                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">--%>
@@ -96,8 +90,8 @@
                     <p id="boardRegInfo" style="font-size: 0.9rem"></p>
                     <p id="boardViewCnt" style="font-size: 0.9rem"></p>
                     <p id="boardRcmdCnt"></p>
-                    <button type="button" class="btn btn-outline-secondary" id="btnBoardEdit">수정</button>
-                    <button type="button" class="btn btn-outline-secondary" id="btnBoardDelete">삭제</button>
+                    <button type="button" class="btn btn-outline-secondary" id="btnBoardEdit" style="display: none">수정</button>
+                    <button type="button" class="btn btn-outline-secondary" id="btnBoardDelete" style="display: none">삭제</button>
                 </div>
 
             </div>
@@ -126,27 +120,24 @@
 </div>
 <!-- /.container -->
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-    </div>
-    <!-- /.container -->
-</footer>
-
 <!-- Bootstrap core JavaScript -->
 <script src="../../../vendor/jquery/jquery.min.js"></script>
 <script src="./../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
 <script type="text/javascript" src="<c:url value="/js/common.js"/> "></script>
+<script type="text/javascript" src="<c:url value="/js/board.js"/> "></script>
 <script type="text/javascript">
     $(document).ready(function () {
         let boardNo = document.location.href.split(baseUrl + "/board/detail/")[1];
+
         //게시글 상세 정보
         $.ajax({
             url: baseUrl + '/api/board/info/' + boardNo,
             type: 'GET',
             dataType: 'json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+            },
             success: function (result) {
                 // console.log(result)
                 $('#boardTitle').text(result.data.boardInfo.boardTitle);
@@ -154,15 +145,23 @@
                 $('#boardContent').text(result.data.boardInfo.boardContent);
                 $('#boardViewCnt').text('조회수 : ' + result.data.boardInfo.boardViewCnt);
                 $('#boardRcmdCnt').text('추천수 : ' + result.data.boardInfo.boardRcmdCnt);
-                $('#boardRegInfo').text(result.data.boardInfo.regDate + ' / ' + result.data.boardInfo.member.memberNm);
+                $('#boardRegInfo').text(result.data.boardInfo.regDate + ' / ' + result.data.boardInfo.member.memberId + '(' + result.data.boardInfo.member.memberNm + ')');
+
+                if('${username}' === result.data.boardInfo.member.memberId) {
+                    $('#btnBoardEdit').show();
+                    $('#btnBoardDelete').show();
+                }
+
             }, error: function (error) {
                 console.log('error');
             }
         });
+
         //수정 버튼
         $('#btnBoardEdit').on('click', function () {
             location.href = '/board/edit/' + boardNo;
         });
+
         //삭제 버튼
         $('#btnBoardDelete').on({
             click: function () {

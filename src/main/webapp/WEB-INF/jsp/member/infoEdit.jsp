@@ -157,10 +157,7 @@
                                     memberNo = result.data.memberInfo.memberNo;
                                     $('#memberName').val(result.data.memberInfo.memberName);
                                     $('#memberId').val(result.data.memberInfo.memberId);
-
-                                    var tell = result.data.memberInfo.memberTell.split('-');
-                                    $('#memberTell').val(tell[0] + tell[1] + tell[2]);
-
+                                    $('#memberTell').val(result.data.memberInfo.memberTell);
                                     $('#memberEmail').val(result.data.memberInfo.memberEmail);
                                 }, error: function (error) {
                                     console.log(error);

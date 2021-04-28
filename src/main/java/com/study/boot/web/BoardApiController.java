@@ -77,4 +77,18 @@ public class BoardApiController {
 
         return ResponseEntity.ok(apiResponse);
     }
+
+    @GetMapping("list/me")
+    public ResponseEntity<?> boardListByMemberIde(Authentication authentication) {
+        ApiResponse apiResponse = new ApiResponse(true, "본인이 작성한 게시물 조회");
+        apiResponse.putData("boardList", boardService.findBoardByMemberId(authentication.getPrincipal().toString()));
+        return ResponseEntity.ok(apiResponse);
+    }
+
+    @GetMapping("list/me/{categoryNo}")
+    public ResponseEntity<?> boardListByMemberIdAndCategory(Authentication authentication, @PathVariable(name = "categoryNo") long categoryNo) {
+        ApiResponse apiResponse = new ApiResponse(true, "본인이 작성한 게시물 조회");
+        apiResponse.putData("boardList", boardService.findBoardByMemberNameAndCategory(authentication.getPrincipal().toString(), categoryNo));
+        return ResponseEntity.ok(apiResponse);
+    }
 }

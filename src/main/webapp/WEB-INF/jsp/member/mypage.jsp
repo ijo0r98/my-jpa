@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
 </head>
 <body>
+<style>
+    table th{
+        text-align: center;
+    }
+</style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         <sec:authentication property="principal" var="username"/>
@@ -51,7 +56,7 @@
         <div class="col-lg-3">
             <h1 class="my-4">마이페이지</h1>
             <div class="list-group">
-                <ul class="list-group" id="categoryList">
+                <ul class="list-group">
                     <li class="list-group-item list-group-item-action active" id="boardAll" onClick="location.href='/member/mypage'">
                         내 게시물
                     </li>
@@ -75,10 +80,18 @@
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
+                <div class="form-group">
+                    <select class="custom-select" id="categoryList">
+                        <option selected="" value="all">전체</option>
+<%--                        <option value="1">One</option>--%>
+<%--                        <option value="2">Two</option>--%>
+<%--                        <option value="3">Three</option>--%>
+                    </select>
+                </div>
+
                 <table class="table">
                     <colgroup>
                         <col style="width:30%" />
-                        <col style="width:10%" />
                         <col style="width:30%" />
                         <col style="width:10%" />
                         <col style="width:10%" />
@@ -86,7 +99,6 @@
                     <thead>
                     <tr>
                         <th scope="col">제목</th>
-                        <th scope="col">작성자</th>
                         <th scope="col">등록 날짜</th>
                         <th scope="col">조회수</th>
                         <th scope="col">추천수</th>
@@ -114,6 +126,110 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        addBoardListMe($('#categoryList option:selected').val());
+
+        // 카테고리 리스트
+        $.ajax({
+            url: baseUrl + '/api/category/list',
+            type: 'GET',
+            dataType: 'json',
+            success: function (result) {
+                // console.log(result);
+                $.each(result.data.categoryList, function(key, obj) {
+                    $('#categoryList').append($('<option />', {
+                        value: obj.categoryNo,
+                        text: obj.categoryName
+                    }));
+                });
+            }, error: function (error) {
+                console.log('error');
+            }
+        });
+
+        $('#categoryList').on({
+            change: function () {
+                // console.log($(this).val());
+                addBoardListMe($(this).val());
+            }
+        });
     });
+
+    function addBoardListMe(value) {
+        if(value === 'all') {
+            //전체 탭
+            $.ajax({
+                url: baseUrl + '/api/board/list/me',
+                type: 'GET',
+                contentType: 'application/json',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                },
+                success: function (result) {
+                    // console.log('success');
+                    $('#tBodyBoardList').empty();
+                    $.each(result.data.boardList, function (key, obj) {
+                        $('#tBodyBoardList').append($('<tr />', {
+                            mouseover: function () {
+                                $(this).css("background-color", "#f4f4f4");
+                            },
+                            mouseout: function () {
+                                $(this).css("background-color", "#ffffff");
+                            },
+                            click: function () {
+                                location.href = '/board/detail/' + obj.boardNo;
+                            }
+                        }).append($('<td />', {
+                            text: obj.boardTitle
+                        })).append($('<td />', {
+                            text: dateFormat(obj.regDate)
+                        })).append($('<td />', {
+                            text: obj.boardViewCnt
+                        })).append($('<td />', {
+                            text: obj.boardRcmdCnt
+                        })));
+                    });
+                }, error: function (error) {
+                    console.log('error' + error);
+                }
+            });
+        } else {
+            $.ajax({
+                url: baseUrl + '/api/board/list/me/' + value,
+                type: 'GET',
+                contentType: 'application/json',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                },
+                success: function (result) {
+                    // console.log(result);
+
+                    $('#tBodyBoardList').empty();
+                    $.each(result.data.boardList, function (key, obj) {
+                        $('#tBodyBoardList').append($('<tr />', {
+                            mouseover: function () {
+                                $(this).css("background-color", "#f4f4f4");
+                            },
+                            mouseout: function () {
+                                $(this).css("background-color", "#ffffff");
+                            },
+                            click: function () {
+                                location.href = '/board/detail/' + obj.boardNo;
+                            }
+                        }).append($('<td />', {
+                            text: obj.boardTitle
+                        })).append($('<td />', {
+                            text: obj.regDate
+                        })).append($('<td />', {
+                            text: obj.boardViewCnt
+                        })).append($('<td />', {
+                            text: obj.boardRcmdCnt
+                        })));
+                    });
+                }, error: function (error) {
+                    console.log('error' + error);
+                }
+            });
+        }
+    }
 </script>
 </html>

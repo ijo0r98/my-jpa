@@ -14,6 +14,8 @@ public class BoardDto {
     private String boardContent;
     private Long memberNo;
     private String memberName;
+    private String memberId;
+    private String regDate;
     private int boardViewCnt;
     private int boardRcmdCnt;
 
@@ -24,7 +26,9 @@ public class BoardDto {
         this.boardContent = board.getBoardContent();
         this.memberNo = board.getMember().getMemberNo();
         this.memberName = board.getMember().getMemberNm();
+        this.memberId = board.getMember().getMemberId();
         this.boardViewCnt = board.getBoardViewCnt();
         this.boardRcmdCnt = board.getBoardRcmdCnt();
+        this.regDate = board.getRegDate().toString();
     }
 }

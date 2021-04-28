@@ -99,7 +99,7 @@
             type: 'GET',
             dataType: 'json',
             success: function (result) {
-                console.log(result)
+                // console.log(result)
                 $.each(result.data.categoryList, function(key, obj) {
                     $('#selectCategory').append($('<option />', {
                         value: obj.categoryNo,

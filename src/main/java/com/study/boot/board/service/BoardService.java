@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -64,5 +66,15 @@ public class BoardService {
     @Transactional
     public List<BoardDto> findBoardByCategory(long categoryNo) {
         return boardRepository.findBoardAllByCategoryNo(categoryNo);
+    }
+
+    @Transactional
+    public List<BoardDto> findBoardByMemberId(String memberName) {
+        return boardRepository.findBoardAllByMemberId(memberName);
+    }
+
+    @Transactional
+    public List<BoardDto> findBoardByMemberNameAndCategory(String memberName, long categoryNo) {
+        return boardRepository.findBoardAllByMemberIdAndCategoryNo(memberName, categoryNo);
     }
 }
