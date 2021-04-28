@@ -13,9 +13,9 @@ public class MemberInfoDto {
 
     private long memberNo;
 
-    private String memberName;
-
     private String memberId;
+
+    private String memberName;
 
     private String memberPw;
 

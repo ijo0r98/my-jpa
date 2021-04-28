@@ -53,10 +53,10 @@
             <h1 class="my-4">마이페이지</h1>
             <div class="list-group">
                 <ul class="list-group" id="categoryList">
-                    <li class="list-group-item list-group-item-action" id="boardAll">
+                    <li class="list-group-item list-group-item-action" id="boardAll" onClick="location.href='/member/mypage'">
                         내 게시물
                     </li>
-                    <li class="list-group-item list-group-item-action">
+                    <li class="list-group-item list-group-item-action" >
                         댓글 관리
                     </li>
                     <li class="list-group-item list-group-item-action active" onClick="location.href='/member/edit'">
@@ -103,6 +103,8 @@
                         <label for="memberTell">핸드폰 번호</label>
                         <input type="text" class="form-control" id="memberTell" placeholder="Tell">
                     </div>
+
+                    <button type="button" class="btn btn-outline-secondary" id="btnEditInfo">수정</button>
                 </div>
             </div>
             <!-- /.card -->
@@ -120,10 +122,11 @@
 <script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
 <script type="text/javascript" src="<c:url value="/js/common.js"/> "></script>
 <script type="text/javascript">
-    var csrfParameter = '${_csrf.parameterName}';
-    var csrfToken = '${_csrf.token}';
 
     $(document).ready(function () {
+
+        let memberNo;
+
         $('#btnCheckPw').on({
             click: function () {
                 $.ajax({
@@ -137,22 +140,91 @@
                         'password' : $('#inputPw').val()
                     }),
                     success: function (result) {
-                        console.log(result)
+                        // console.log(result);
                         if(result == true) {
-                            $('#editForm').show();
-                            $("#inputPw").attr("disabled",true).attr("readonly",false);
-                            $('#invalidPw').hide();
+                            showEditForm();
+
+                            // 기존 등록된 사용자 정보
+                            $.ajax({
+                                url: baseUrl + '/api/member/info/me',
+                                type: 'GET',
+                                contentType: 'application/json',
+                                headers: {
+                                    "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
+                                },
+                                success: function (result) {
+                                    // console.log(result);
+                                    memberNo = result.data.memberInfo.memberNo;
+                                    $('#memberName').val(result.data.memberInfo.memberName);
+                                    $('#memberId').val(result.data.memberInfo.memberId);
+
+                                    var tell = result.data.memberInfo.memberTell.split('-');
+                                    $('#memberTell').val(tell[0] + tell[1] + tell[2]);
+
+                                    $('#memberEmail').val(result.data.memberInfo.memberEmail);
+                                }, error: function (error) {
+                                    console.log(error);
+                                }
+                            });
                         }
                     }, error: function (error) {
-                        console.log(error)
+                        // console.log(error);
                         $('#editForm').hide();
                         $('#invalidPw').show();
                     }
-                })
+                });
             }
         });
 
+        // 전화번호 하이픈 자동 추가
+        $('#memberTell').on({
+            keyup: function () {
+                $(this).val(autoHyphen($(this).val()));
+            }
+        });
 
+        $('#btnEditInfo').off('click').on({
+            click: function () {
+                if(confirm('정보를 변경하시겠습니까?') == true) {
+                    if (checkEmail($('#memberEmail').val()) == false) {
+                        alert('이메일 형식이 맞지 않습니다.');
+                        $('#memberEmail').focus();
+                    } else if (checkPhoneNum($('#memberTell').val()) == false) {
+                        alert('전화번호 형식이 맞지 않습니다.');
+                        $('#memberTell').focus();
+                    } else {
+                        $.ajax({
+                            url: baseUrl + '/api/member/edit',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            headers: {
+                                "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
+                            },
+                            data: JSON.stringify({
+                                'memberNo': memberNo,
+                                'memberId': $('#memberId').val(),
+                                'memberEmail': $('#memberEmail').val(),
+                                'memberTell': $('#memberTell').val()
+                            }),
+                            success: function (result) {
+                                // console.log(result);
+                                location.reload();
+                            }, error: function (error) {
+                                console.log(error);
+                            }
+                        });
+                    }
+                }
+            }
+        });
     });
+
+    // 사용자 정보 수정 입력 칸
+    function showEditForm() {
+        $('#editForm').show();
+        $("#inputPw").attr("disabled",true);
+        $('#invalidPw').hide();
+    }
+
 </script>
 </html>

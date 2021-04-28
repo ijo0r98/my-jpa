@@ -4,6 +4,7 @@ import com.study.boot.member.domain.Member;
 import com.study.boot.member.domain.Role;
 import com.study.boot.member.repository.MemberRepository;
 import com.study.boot.payload.exception.BadRequestException;
+import com.study.boot.payload.request.MemberUpdateRequest;
 import com.study.boot.payload.request.SignupRequest;
 import com.study.boot.payload.response.MemberInfoDto;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +58,7 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public boolean checkMemberPw(String inputPw, String memberId) {
+    public boolean checkMemberPassword(String inputPw, String memberId) {
         return passwordEncoder.matches(inputPw, loadUserByUsername(memberId).getMemberPw());
     }
 
@@ -65,6 +66,18 @@ public class MemberService implements UserDetailsService {
     public MemberInfoDto findMemberInfoById(long memberNo) {
         Member member = memberRepository.getOne(memberNo);
         return new MemberInfoDto(member);
+    }
+
+    @Transactional
+    public MemberInfoDto findMemberInfoByName(String memberName) {
+        Member member = loadUserByUsername(memberName);
+        return new MemberInfoDto(member);
+    }
+
+    @Transactional
+    public void editMemberInfo(MemberUpdateRequest memberUpdateRequest) {
+        Member member = memberRepository.getOne(memberUpdateRequest.getMemberNo());
+        member.updateMemberInfo(memberUpdateRequest.getMemberEmail(), memberUpdateRequest.getMemberTell());
     }
 
 }

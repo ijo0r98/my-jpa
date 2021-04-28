@@ -52,7 +52,7 @@
             <h1 class="my-4">마이페이지</h1>
             <div class="list-group">
                 <ul class="list-group" id="categoryList">
-                    <li class="list-group-item list-group-item-action active" id="boardAll">
+                    <li class="list-group-item list-group-item-action active" id="boardAll" onClick="location.href='/member/mypage'">
                         내 게시물
                     </li>
                     <li class="list-group-item list-group-item-action">
@@ -75,7 +75,6 @@
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
-                <button class="btn btn-secondary" id="registerBoard">새 글 등록</button>
                 <table class="table">
                     <colgroup>
                         <col style="width:30%" />

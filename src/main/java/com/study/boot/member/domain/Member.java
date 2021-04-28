@@ -101,4 +101,9 @@ public class Member extends DateEntity implements UserDetails  {
         }
     }
 
+    public void updateMemberInfo(String memberEmail, String memberTell) {
+        this.memberEmail = memberEmail;
+        this.memberTell = memberTell;
+    }
+
 }

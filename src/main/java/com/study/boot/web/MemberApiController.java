@@ -3,6 +3,7 @@ package com.study.boot.web;
 import com.study.boot.member.domain.Member;
 import com.study.boot.member.service.MemberService;
 import com.study.boot.payload.exception.BadRequestException;
+import com.study.boot.payload.request.MemberUpdateRequest;
 import com.study.boot.payload.request.SignupRequest;
 import com.study.boot.payload.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -49,16 +50,15 @@ public class MemberApiController {
     }
 
     // 사용자 본인 정보 조회
-    @GetMapping("/info")
+    @GetMapping("/info/me")
     public ResponseEntity<?> memberDetailInfo(Authentication authentication) {
-        Member member = (Member) authentication.getPrincipal();
         ApiResponse apiResponse = new ApiResponse(true, "로그인한 사용자 상세정보 조회");
-        apiResponse.putData("memberInfo", memberService.findMemberInfoById(member.getMemberNo()));
+        apiResponse.putData("memberInfo", memberService.findMemberInfoByName(authentication.getPrincipal().toString()));
 
         return ResponseEntity.ok(apiResponse);
     }
 
-    // 아이디로 사용자 정보 조회
+    // 사용자 정보 조회
     @GetMapping("/info/{memberNo}")
     public ResponseEntity<?> memberDetailInfoByNo(@PathVariable(name = "memberNo") long memberNo) {
         ApiResponse apiResponse = new ApiResponse(true, "사용자 상세정보 조회");
@@ -71,10 +71,18 @@ public class MemberApiController {
     @PostMapping("/password/check")
     public ResponseEntity<?> checkPassword(Authentication authentication, @RequestBody Map<String, Object> params) {
 
-        if(memberService.checkMemberPw(params.get("password").toString(), authentication.getPrincipal().toString()) == false){
+        if(memberService.checkMemberPassword(params.get("password").toString(), authentication.getPrincipal().toString()) == false){
             throw new BadRequestException("잘못된 비밀번호 입니다.");
         } else {
             return ResponseEntity.ok(true);
         }
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity<?> editMemberInfo(@RequestBody MemberUpdateRequest memberUpdateRequest) {
+        ApiResponse apiResponse = new ApiResponse(true, "사용자 정보 수정");
+        memberService.editMemberInfo(memberUpdateRequest);
+
+        return ResponseEntity.ok(apiResponse);
     }
 }

@@ -46,8 +46,7 @@
                     </div>
                     <div class="form-group">
                         <label for="memberId">아이디</label>
-                        <input type="text" class="form-control" id="memberId" aria-describedby="idHelp"
-                               placeholder="Id">
+                        <input type="text" class="form-control" id="memberId" aria-describedby="idHelp" placeholder="Id">
                         <d id="idAvailable" class="valid-feedback" style="display: none;"></d>
                         <d id="idNotAvailable" class="invalid-feedback" style="display: none;"></d>
 <%--                        <br />--%>
@@ -119,7 +118,7 @@
                     alert('전화번호를 입력해 주세요.');
                     $('#memberTell').focus();
                 } else if (checkPhoneNum($('#memberTell').val()) == false) {
-                    alert('전화번호를 다시 입력해 주세요.');
+                    alert('전화번호 형식이 맞지 않습니다.');
                     $('#memberTell').focus();
                 } else {
                     $.ajax({
