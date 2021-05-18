@@ -16,13 +16,10 @@ import static com.study.boot.member.domain.QMember.*;
 @RequiredArgsConstructor
 public class BoardRepositoryImpl implements BoardRepositoryCustom{
 
-    private final EntityManager em;
-//    private final JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+    private final JPAQueryFactory queryFactory;
 
     @Override
     public List<BoardDto> findBoardAllByCategoryNo(long categoryNo) {
-        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-
 //        List<Board> boards = queryFactory
 //                .selectFrom(board)
 //                .where(board.category.categoryNo.eq(categoryNo))
@@ -40,8 +37,6 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
 
     @Override
     public List<BoardDto> findBoardAllByMemberId(String memberId) {
-        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-
         List<Board> boards = queryFactory
                 .selectFrom(board)
                 .leftJoin(board.category, category).fetchJoin()
@@ -54,13 +49,23 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
 
     @Override
     public List<BoardDto> findBoardAllByMemberIdAndCategoryNo(String memberId, long categoryNo) {
-        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-
         List<Board> boards = queryFactory
                 .selectFrom(board)
                 .leftJoin(board.category, category).fetchJoin()
                 .leftJoin(board.member, member).fetchJoin()
                 .where(board.member.memberId.eq(memberId).and(board.category.categoryNo.eq(categoryNo)))
+                .fetch();
+
+        return boards.stream().map(b -> new BoardDto(b)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BoardDto> findBoardAllByMemberNo(long memberNo) {
+        List<Board> boards = queryFactory
+                .selectFrom(board)
+                .leftJoin(board.category, category).fetchJoin()
+                .leftJoin(board.member, member).fetchJoin()
+                .where(board.member.memberNo.eq(memberNo))
                 .fetch();
 
         return boards.stream().map(b -> new BoardDto(b)).collect(Collectors.toList());

@@ -79,4 +79,9 @@ public class BoardService {
     public List<BoardDto> findBoardByMemberNameAndCategory(String memberName, long categoryNo) {
         return boardRepository.findBoardAllByMemberIdAndCategoryNo(memberName, categoryNo);
     }
+
+    @Transactional
+    public List<BoardDto> findBoardByMemberNo(long memberNo) {
+        return boardRepository.findBoardAllByMemberNo(memberNo);
+    }
 }

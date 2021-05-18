@@ -78,16 +78,23 @@ public class BoardApiController {
         return ResponseEntity.ok(apiResponse);
     }
 
+    @GetMapping("list/member/{memberNo}")
+    public ResponseEntity<?> boardListByMemberNo(@PathVariable(name = "memberNo") long memberNo) {
+        ApiResponse apiResponse = new ApiResponse(true, "회원별 작성한 게시물 전체 조회");
+        apiResponse.putData("boardList", boardService.findBoardByMemberNo(memberNo));
+        return ResponseEntity.ok(apiResponse);
+    }
+
     @GetMapping("list/me")
     public ResponseEntity<?> boardListByMemberIde(Authentication authentication) {
-        ApiResponse apiResponse = new ApiResponse(true, "본인이 작성한 게시물 조회");
+        ApiResponse apiResponse = new ApiResponse(true, "본인이 작성한 게시물 전체 조회");
         apiResponse.putData("boardList", boardService.findBoardByMemberId(authentication.getPrincipal().toString()));
         return ResponseEntity.ok(apiResponse);
     }
 
     @GetMapping("list/me/{categoryNo}")
     public ResponseEntity<?> boardListByMemberIdAndCategory(Authentication authentication, @PathVariable(name = "categoryNo") long categoryNo) {
-        ApiResponse apiResponse = new ApiResponse(true, "본인이 작성한 게시물 조회");
+        ApiResponse apiResponse = new ApiResponse(true, "본인이 작성한 게시물 카테고리별 조회");
         apiResponse.putData("boardList", boardService.findBoardByMemberNameAndCategory(authentication.getPrincipal().toString(), categoryNo));
         return ResponseEntity.ok(apiResponse);
     }

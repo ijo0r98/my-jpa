@@ -44,7 +44,7 @@
                 </li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Admin</a>
+                        <a class="nav-link" href="/admin">Admin</a>
                     </li>
                 </sec:authorize>
                 <form action="/logout" method="POST">
@@ -84,10 +84,10 @@
 <%--                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">--%>
                 <div class="card-body">
                     <h3 class="card-title" id="boardTitle"></h3>
-                    <h4 id="categoryNm" style="font-size: 1.2rem">$24.99</h4>
-                    <p class="card-text" id="boardContent"></p>
-<%--                    <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>--%>
+                    <h4 id="categoryNm" style="font-size: 1.2rem"></h4>
                     <p id="boardRegInfo" style="font-size: 0.9rem"></p>
+                    <p class="card-text" id="boardContent"></p>
+
                     <p id="boardViewCnt" style="font-size: 0.9rem"></p>
                     <p id="boardRcmdCnt"></p>
                     <button type="button" class="btn btn-outline-secondary" id="btnBoardEdit" style="display: none">수정</button>

@@ -18,6 +18,7 @@ public class BoardDto {
     private String regDate;
     private int boardViewCnt;
     private int boardRcmdCnt;
+    private String category;
 
     @Builder
     public BoardDto(Board board) {
@@ -30,5 +31,6 @@ public class BoardDto {
         this.boardViewCnt = board.getBoardViewCnt();
         this.boardRcmdCnt = board.getBoardRcmdCnt();
         this.regDate = board.getRegDate().toString();
+        this.category = board.getCategory().getCategoryName();
     }
 }

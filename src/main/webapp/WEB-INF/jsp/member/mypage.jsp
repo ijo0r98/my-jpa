@@ -35,7 +35,7 @@
                 </li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Admin</a>
+                        <a class="nav-link" href="/admin">Admin</a>
                     </li>
                 </sec:authorize>
                 <form action="/logout" method="POST">
@@ -54,7 +54,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
-            <h1 class="my-4">마이페이지</h1>
+            <h1 class="my-4">MY PAGE</h1>
             <div class="list-group">
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-action active" id="boardAll" onClick="location.href='/member/mypage'">
@@ -81,7 +81,7 @@
 
                 <sec:authorize access="isAuthenticated()">
                 <div class="form-group">
-                    <select class="custom-select" id="categoryList">
+                    <select class="custom-select" id="categoryList" style="width: 150px;">
                         <option selected="" value="all">전체</option>
 <%--                        <option value="1">One</option>--%>
 <%--                        <option value="2">Two</option>--%>

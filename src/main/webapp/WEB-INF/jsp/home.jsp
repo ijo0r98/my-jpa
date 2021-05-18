@@ -60,7 +60,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
-            <h1 class="my-4">게시판</h1>
+            <h1 class="my-4">HOME</h1>
             <div class="list-group">
                 <ul class="list-group" id="categoryList">
                     <li class="list-group-item list-group-item-action active" id="boardAll">
@@ -81,9 +81,10 @@
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
-            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel"></div>
+            <div id="categoryNm" class="carousel slide my-4" data-ride="carousel"></div>
 
             <div class="row">
+                <button class="btn btn-secondary " id="registerBoard">새 글 등록</button>
                 <sec:authorize access="isAnonymous()">
                     로그인 후 이용 가능합니다.
                     <br/>
@@ -91,7 +92,8 @@
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
-                <button class="btn btn-secondary" id="registerBoard">새 글 등록</button>
+
+
                 <table class="table">
                     <colgroup>
                         <col style="width:30%" />

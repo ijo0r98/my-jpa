@@ -50,7 +50,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
-            <h1 class="my-4">마이페이지</h1>
+            <h1 class="my-4">MY PAGE</h1>
             <div class="list-group">
                 <ul class="list-group" id="categoryList">
                     <li class="list-group-item list-group-item-action" id="boardAll" onClick="location.href='/member/mypage'">
@@ -192,7 +192,7 @@
                     } else {
                         $.ajax({
                             url: baseUrl + '/api/member/edit',
-                            type: 'POST',
+                            type: 'PUT',
                             contentType: 'application/json',
                             headers: {
                                 "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")

@@ -115,6 +115,34 @@
                 </table>
             </div>
             </div>
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    댓글
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <colgroup>
+                            <col style="width:40%" />
+                            <col style="width:20%" />
+                            <col style="width:20%" />
+                            <col style="width:10%" />
+                            <col style="width:10%" />
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th scope="col">제목</th>
+                            <th scope="col">카테고리</th>
+                            <th scope="col">등록 날짜</th>
+                            <th scope="col">조회수</th>
+                            <th scope="col">추천수</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tBodyComments">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
             <!-- /.card -->
@@ -144,7 +172,7 @@
                 "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
             },
             success: function (result) {
-                console.log(result);
+                // console.log(result);
 
                 $('#memberName').val(result.data.memberInfo.memberName);
                 $('#memberId').val(result.data.memberInfo.memberId);
@@ -152,7 +180,45 @@
                 $('#memberEmail').val(result.data.memberInfo.memberEmail);
                 $('#regDate').val(dateFormat(result.data.memberInfo.regDate));
             }, error: function (error) {
-                console.log(error);
+                console.log('error');
+            }
+        });
+
+        $.ajax({
+            url: baseUrl + '/api/board/list/member/' + memberNo,
+            type: 'GET',
+            contentType: 'application/json',
+            headers: {
+                "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
+            },
+            success: function (result) {
+                console.log(result);
+                $('#tBodyBoardList').empty();
+                $.each(result.data.boardList, function (key, obj) {
+                    $('#tBodyBoardList').append($('<tr />', {
+                        mouseover: function () {
+                            $(this).css("background-color", "#f4f4f4");
+                        },
+                        mouseout: function () {
+                            $(this).css("background-color", "#ffffff");
+                        },
+                        click: function () {
+                            location.href = '/board/detail/' + obj.boardNo;
+                        }
+                    }).append($('<td />', {
+                        text: obj.boardTitle
+                    })).append($('<td />', {
+                        text: obj.category
+                    })).append($('<td />', {
+                        text: dateFormat(obj.regDate)
+                    })).append($('<td />', {
+                        text: obj.boardViewCnt
+                    })).append($('<td />', {
+                        text: obj.boardRcmdCnt
+                    })));
+                });
+            }, error: function (error) {
+                console.log('error');
             }
         });
     });

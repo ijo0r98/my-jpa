@@ -88,7 +88,7 @@ function addBoardListByCategory(value) {
                 xhr.setRequestHeader(header, token);
             },
             success: function (result) {
-                console.log('success');
+                // console.log('success');
 
                 $('#tBodyBoardList').empty();
                 $.each(result.data.boardList, function (key, obj) {

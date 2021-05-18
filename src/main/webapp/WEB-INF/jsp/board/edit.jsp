@@ -37,7 +37,7 @@
                     </li>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Admin</a>
+                            <a class="nav-link" href="/admin">Admin</a>
                         </li>
                     </sec:authorize>
                     <form action="/logout" method="POST">

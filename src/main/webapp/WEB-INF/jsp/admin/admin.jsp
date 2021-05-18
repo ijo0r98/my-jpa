@@ -35,7 +35,7 @@
                     <a class="nav-link" href="/member/mypage">Mypage</a>
                 </li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/admin">Admin</a>
                     </li>
                 </sec:authorize>
@@ -64,7 +64,10 @@
                     <li class="list-group-item list-group-item-action">
                         게시물 관리
                     </li>
-                    <li class="list-group-item list-group-item-action" onClick="location.href='/member/edit'">
+                    <li class="list-group-item list-group-item-action" onClick="location.href='/admin/category'">
+                        카테고리 관리
+                    </li>
+                    <li class="list-group-item list-group-item-action" onClick="location.href='">
                         댓글 관리
                     </li>
                 </ul>
@@ -86,7 +89,7 @@
 
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <div class="form-group">
-                    <select class="custom-select" id="roleSelect">
+                    <select class="custom-select" id="roleSelect" style="width: 150px;">
                         <option selected="" value="">전체</option>
                         <option value="member">회원</option>
                         <option value="admin">관리자</option>
@@ -166,7 +169,8 @@
                             location.href = '/admin/member/info/' + obj.memberNo;
                         }
                     }).append($('<td />', {
-                        text: key + 1
+                        text: key + 1,
+                        style: "text-align: center;"
                     })).append($('<td />', {
                         text: obj.memberId
                     })).append($('<td />', {

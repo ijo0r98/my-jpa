@@ -13,8 +13,13 @@ public class AdminController {
         return "/admin/admin";
     }
 
-    @GetMapping("/member/info/{memberNo}")
-    public String mmeberInfo() {
+    @GetMapping("member/info/{memberNo}")
+    public String memberInfo() {
         return "/admin/memberInfo";
+    }
+
+    @GetMapping("category")
+    public String editCategory() {
+        return "/admin/category";
     }
 }

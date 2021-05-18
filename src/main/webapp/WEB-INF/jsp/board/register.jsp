@@ -37,7 +37,7 @@
                     </li>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Admin</a>
+                            <a class="nav-link" href="/admin">Admin</a>
                         </li>
                     </sec:authorize>
                     <form action="/logout" method="POST">
@@ -65,7 +65,7 @@
                         </div>
                         <div class="form-group">
                             <label for="selectCategory">카테고리</label>
-                            <select class="form-control" id="selectCategory">
+                            <select class="form-control" id="selectCategory" style="width: 200px">
 <%--                                <option>1</option>--%>
 <%--                                <option>2</option>--%>
 <%--                                <option>3</option>--%>
