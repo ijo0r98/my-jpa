@@ -27,20 +27,18 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
-    // 회원가입
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@Valid @RequestBody SignupRequest signupRequest) throws Exception {
 
         memberService.signUpMember(signupRequest);
-        ApiResponse apiResponse = new ApiResponse(true, "회원가입 완료");
+        ApiResponse apiResponse = new ApiResponse(true, "회원가입");
 
         return ResponseEntity.ok(apiResponse);
     }
 
-    // 아이디 중복검사
     @GetMapping("/id/check")
     public ResponseEntity<?> checkIdDuplication(@RequestParam(value = "memberId") String memberId) throws BadRequestException {
-        System.out.println(memberId);
+//        System.out.println(memberId);
 
         if(memberService.existsByMemberId(memberId) == true) {
             throw new BadRequestException("이미 사용중인 아이디 입니다.");
@@ -49,7 +47,6 @@ public class MemberApiController {
         }
     }
 
-    // 사용자 본인 정보 조회
     @GetMapping("/info/me")
     public ResponseEntity<?> memberDetailInfo(Authentication authentication) {
         ApiResponse apiResponse = new ApiResponse(true, "로그인한 사용자 상세정보 조회");
@@ -58,7 +55,6 @@ public class MemberApiController {
         return ResponseEntity.ok(apiResponse);
     }
 
-    // 사용자 정보 조회
     @GetMapping("/info/{memberNo}")
     public ResponseEntity<?> memberDetailInfoByNo(@PathVariable(name = "memberNo") long memberNo) {
         ApiResponse apiResponse = new ApiResponse(true, "사용자 상세정보 조회");
@@ -67,7 +63,6 @@ public class MemberApiController {
         return ResponseEntity.ok(apiResponse);
     }
 
-    // 비밀번호로 사용자 확인
     @PostMapping("/password/check")
     public ResponseEntity<?> checkPassword(Authentication authentication, @RequestBody Map<String, Object> params) {
 
@@ -78,10 +73,19 @@ public class MemberApiController {
         }
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<?> editMemberInfo(@RequestBody MemberUpdateRequest memberUpdateRequest) {
         ApiResponse apiResponse = new ApiResponse(true, "사용자 정보 수정");
         memberService.editMemberInfo(memberUpdateRequest);
+
+        return ResponseEntity.ok(apiResponse);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<?> findMemberByRole(@RequestParam(value = "role", required = false) String role) {
+        System.out.println(role);
+        ApiResponse apiResponse = new ApiResponse(true, "사용자 권한별 조회 -" + role);
+        apiResponse.putData("memberList", memberService.findMemberByRole(role));
 
         return ResponseEntity.ok(apiResponse);
     }

@@ -12,21 +12,21 @@ function autoHyphen(str) {
     str = str.replace(/[^0-9]/g, '');
     var tmp = '';
 
-    if( str.length < 4){
+    if( str.length < 4) {
         return str;
-    }else if(str.length < 7){
+    } else if(str.length < 7) {
         tmp += str.substr(0, 3);
         tmp += '-';
         tmp += str.substr(3);
         return tmp;
-    }else if(str.length < 11){
+    } else if(str.length < 11) {
         tmp += str.substr(0, 3);
         tmp += '-';
         tmp += str.substr(3, 3);
         tmp += '-';
         tmp += str.substr(6);
         return tmp;
-    }else{
+    } else {
         tmp += str.substr(0, 3);
         tmp += '-';
         tmp += str.substr(3, 4);

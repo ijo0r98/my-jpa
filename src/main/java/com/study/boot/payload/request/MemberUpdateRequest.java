@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class MemberUpdateRequest {
 
     @NotBlank

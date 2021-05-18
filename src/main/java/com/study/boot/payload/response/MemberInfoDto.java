@@ -23,6 +23,8 @@ public class MemberInfoDto {
 
     private String memberEmail;
 
+    private String regDate;
+
     @Builder
     public MemberInfoDto(Member member) {
         this.memberNo = member.getMemberNo();
@@ -31,5 +33,6 @@ public class MemberInfoDto {
         this.memberPw = member.getMemberPw();
         this.memberTell = member.getMemberTell();
         this.memberEmail = member.getMemberEmail();
+        this.regDate = member.getRegDate().toString();
     }
 }

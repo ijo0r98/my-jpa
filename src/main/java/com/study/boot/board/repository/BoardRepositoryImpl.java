@@ -17,13 +17,21 @@ import static com.study.boot.member.domain.QMember.*;
 public class BoardRepositoryImpl implements BoardRepositoryCustom{
 
     private final EntityManager em;
+//    private final JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 
     @Override
     public List<BoardDto> findBoardAllByCategoryNo(long categoryNo) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 
+//        List<Board> boards = queryFactory
+//                .selectFrom(board)
+//                .where(board.category.categoryNo.eq(categoryNo))
+//                .fetch();
+
         List<Board> boards = queryFactory
                 .selectFrom(board)
+                .leftJoin(board.category, category).fetchJoin()
+                .leftJoin(board.member, member).fetchJoin()
                 .where(board.category.categoryNo.eq(categoryNo))
                 .fetch();
 

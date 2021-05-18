@@ -11,4 +11,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>, BoardReposi
 
     // 사용자가 작성한 게시글 전체 조회
     List<Board> findAllByMember_MemberId(String membername);
+
+    // 카테고리별 게시글 조회
+    List<Board> findAllByCategory_CategoryNo(long categoryNo);
 }

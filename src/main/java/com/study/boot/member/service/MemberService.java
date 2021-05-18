@@ -6,6 +6,7 @@ import com.study.boot.member.repository.MemberRepository;
 import com.study.boot.payload.exception.BadRequestException;
 import com.study.boot.payload.request.MemberUpdateRequest;
 import com.study.boot.payload.request.SignupRequest;
+import com.study.boot.payload.response.MemberDto;
 import com.study.boot.payload.response.MemberInfoDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -78,6 +80,28 @@ public class MemberService implements UserDetailsService {
     public void editMemberInfo(MemberUpdateRequest memberUpdateRequest) {
         Member member = memberRepository.getOne(memberUpdateRequest.getMemberNo());
         member.updateMemberInfo(memberUpdateRequest.getMemberEmail(), memberUpdateRequest.getMemberTell());
+    }
+
+    @Transactional
+    public List<MemberDto> findMemberByRole(String role) {
+        return memberRepository.findAllByMemberRole(findRoleName(role));
+    }
+
+    @Transactional
+    public void updateMemberRole(long memberNo, String role) {
+        Member member = memberRepository.getOne(memberNo);
+        member.updateMemberRole(findRoleName(role));
+    }
+
+    private String findRoleName(String role) {
+        switch (role) {
+            case "admin":
+                return "ROLE_ADMIN";
+            case "member":
+                return "ROLE_MEMBER";
+            default:
+                return null;
+        }
     }
 
 }

@@ -106,4 +106,8 @@ public class Member extends DateEntity implements UserDetails  {
         this.memberTell = memberTell;
     }
 
+    public void updateMemberRole(String role) {
+        this.memberRole = Role.valueOf(role);
+    }
+
 }

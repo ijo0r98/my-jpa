@@ -9,7 +9,7 @@ public interface BoardRepositoryCustom {
     // 카테고리별 게시글 전체 조회
     List<BoardDto> findBoardAllByCategoryNo(long categoryNo);
 
-    // 사용자가 작성한 게시글 전체 조회 - 페치조인
+    // 사용자가 작성한 게시글 전체 조회
     List<BoardDto> findBoardAllByMemberId(String memberId);
 
     // 사용자가 작성한 게시글 카테고리별 조회
