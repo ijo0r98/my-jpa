@@ -84,7 +84,7 @@
 <%--                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">--%>
                 <div class="card-body">
                     <h3 class="card-title" id="boardTitle"></h3>
-                    <h4 id="categoryNm" style="font-size: 1.2rem"></h4>
+                    <span class="badge rounded-pill bg-light" id="categoryNm">Light</span>
                     <p id="boardRegInfo" style="font-size: 0.9rem"></p>
                     <p class="card-text" id="boardContent"></p>
 

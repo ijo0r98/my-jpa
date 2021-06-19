@@ -58,7 +58,7 @@ public class MemberApiController {
     @GetMapping("/info/{memberNo}")
     public ResponseEntity<?> memberDetailInfoByNo(@PathVariable(name = "memberNo") long memberNo) {
         ApiResponse apiResponse = new ApiResponse(true, "사용자 상세정보 조회");
-        apiResponse.putData("memberInfo", memberService.findMemberInfoById(memberNo));
+        apiResponse.putData("memberInfo", memberService.findMemberInfoByNo(memberNo));
 
         return ResponseEntity.ok(apiResponse);
     }

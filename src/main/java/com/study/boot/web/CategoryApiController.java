@@ -6,12 +6,15 @@ import com.study.boot.board.service.CategoryService;
 import com.study.boot.payload.response.ApiResponse;
 import com.study.boot.payload.response.CategoryListDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.support.HttpRequestHandlerServlet;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,4 +32,21 @@ public class CategoryApiController {
 
         return ResponseEntity.ok(apiResponse);
     }
+
+    @PostMapping("add")
+    public ResponseEntity<?> addNewCategory(@RequestBody Map<String, Object> params) {
+        ApiResponse apiResponse = new ApiResponse(true, "카테고리 추가");
+        categoryService.addCategory(params.get("categoryName").toString());
+
+        return ResponseEntity.ok(apiResponse);
+    }
+
+    @GetMapping("delete/{categoryNo}")
+    public ResponseEntity<?> deleteCategoryByNo(@PathVariable(name = "categoryNo") long categoryNo) {
+        ApiResponse apiResponse = new ApiResponse(true, "카테고리 삭제");
+        categoryService.deleteCategory(categoryNo);
+
+        return ResponseEntity.ok(apiResponse);
+    }
+
 }

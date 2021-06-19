@@ -85,6 +85,13 @@
                             <input type="text" class="form-control-plaintext" id="regDate" disabled="true">
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="memberRoll" class="col-sm-2 col-form-label">권한</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="memberRoll" disabled="true">
+                            <button type="button" class="btn btn-light disabled" id="editRoll">권한 수정</button>
+                        </div>
+                    </div>
                 </div>
                 </div>
 
@@ -159,6 +166,7 @@
 <script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
 <script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
 <script type="text/javascript" src="<c:url value="/js/common.js"/> "></script>
+<script type="text/javascript" src="<c:url value="/js/member.js"/> "></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -179,6 +187,8 @@
                 $('#memberTell').val(result.data.memberInfo.memberTell);
                 $('#memberEmail').val(result.data.memberInfo.memberEmail);
                 $('#regDate').val(dateFormat(result.data.memberInfo.regDate));
+                $('#memberRoll').val(toMemberRoll(result.data.memberInfo.memberRoll));
+                console.log(result.data.memberInfo.memberRoll)
             }, error: function (error) {
                 console.log('error');
             }
@@ -192,7 +202,8 @@
                 "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
             },
             success: function (result) {
-                console.log(result);
+                // console.log(result);
+
                 $('#tBodyBoardList').empty();
                 $.each(result.data.boardList, function (key, obj) {
                     $('#tBodyBoardList').append($('<tr />', {

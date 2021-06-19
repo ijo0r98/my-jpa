@@ -8,6 +8,8 @@ $(document).ready(function () {
 
 // Li 카테고리 리스트
 function addCategoryList(type, categoryNo) {
+    let cntAll = 0;
+
     $.ajax({
         url: baseUrl + '/api/category/list',
         type: 'GET',
@@ -17,7 +19,9 @@ function addCategoryList(type, categoryNo) {
         },
         success: function (result) {
             // console.log('success');
+
             $.each(result.data.categoryList, function (key, obj) {
+                cntAll += obj.boardCnt;
                 $('#categoryList').append($('<li />', {
                     class: 'list-group-item list-group-item-action',
                     text: obj.categoryName,
@@ -31,7 +35,9 @@ function addCategoryList(type, categoryNo) {
                     class: 'badge badge-primary badge-pill',
                     text: obj.boardCnt
                 })));
-            })
+            });
+            $('#boardTotalCnt').text(cntAll);
+
         }, error: function(error) {
             console.log('error')
         }
@@ -49,7 +55,7 @@ function addBoardListByCategory(value) {
                 xhr.setRequestHeader(header, token);
             },
             success: function (result) {
-                console.log('success');
+                // console.log('success');
 
                 $('#tBodyBoardList').empty();
                 $.each(result.data.boardList, function (key, obj) {

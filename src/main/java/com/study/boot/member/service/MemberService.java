@@ -65,7 +65,7 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public MemberInfoDto findMemberInfoById(long memberNo) {
+    public MemberInfoDto findMemberInfoByNo(long memberNo) {
         Member member = memberRepository.getOne(memberNo);
         return new MemberInfoDto(member);
     }
@@ -84,21 +84,21 @@ public class MemberService implements UserDetailsService {
 
     @Transactional
     public List<MemberDto> findMemberByRole(String role) {
-        return memberRepository.findAllByMemberRole(findRoleName(role));
+        return memberRepository.findAllByMemberRole(toRole(role));
     }
 
     @Transactional
     public void updateMemberRole(long memberNo, String role) {
         Member member = memberRepository.getOne(memberNo);
-        member.updateMemberRole(findRoleName(role));
+        member.updateMemberRoleAdmin(toRole(role));
     }
 
-    private String findRoleName(String role) {
+    private String toRole(String role) {
         switch (role) {
             case "admin":
-                return "ROLE_ADMIN";
+                return Role.ROLE_ADMIN.toString();
             case "member":
-                return "ROLE_MEMBER";
+                return Role.ROLE_MEMBER.toString();
             default:
                 return null;
         }

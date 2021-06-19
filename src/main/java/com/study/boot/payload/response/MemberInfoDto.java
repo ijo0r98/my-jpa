@@ -12,18 +12,13 @@ import lombok.Setter;
 public class MemberInfoDto {
 
     private long memberNo;
-
     private String memberId;
-
     private String memberName;
-
     private String memberPw;
-
     private  String memberTell;
-
     private String memberEmail;
-
     private String regDate;
+    private String memberRoll;
 
     @Builder
     public MemberInfoDto(Member member) {
@@ -34,5 +29,6 @@ public class MemberInfoDto {
         this.memberTell = member.getMemberTell();
         this.memberEmail = member.getMemberEmail();
         this.regDate = member.getRegDate().toString();
+        this.memberRoll = member.getMemberRole().toString();
     }
 }

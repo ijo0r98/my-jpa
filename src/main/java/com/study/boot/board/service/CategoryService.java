@@ -27,4 +27,22 @@ public class CategoryService {
         return categoryRepository.getOne(categoryNo);
     }
 
+    @Transactional
+    public void addCategory(String categoryName) {
+        Category newCategory = new Category();
+        newCategory.setCategoryName(categoryName);
+        categoryRepository.save(newCategory);
+    }
+
+    @Transactional
+    public void deleteCategory(long categoryNo) {
+        categoryRepository.delete(categoryRepository.getOne(categoryNo));
+    }
+
+    @Transactional
+    public void editCategoryName(long categoryNo, String categoryName) {
+        Category category = categoryRepository.getOne(categoryNo);
+        category.updateCategory(categoryName);
+    }
+
 }
