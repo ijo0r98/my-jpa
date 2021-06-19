@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
@@ -26,10 +26,11 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
-        <sec:csrfMetaTags />
+        <sec:csrfMetaTags/>
         <sec:authentication property="principal" var="username"/>
         <a class="navbar-brand" href="/">${username}님 반갑습니다!</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -48,7 +49,7 @@
                     </li>
                 </sec:authorize>
                 <form action="/logout" method="POST">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <sec:authorize access="isAuthenticated()">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">LOGOUT</button>
                     </sec:authorize>
@@ -64,24 +65,24 @@
 
     <div class="row">
 
-<%--        <div class="col-lg-3">--%>
-<%--            <h1 class="my-4">게시판</h1>--%>
-<%--            <div class="list-group">--%>
-<%--                <ul class="list-group" id="categoryList">--%>
-<%--                    <li class="list-group-item list-group-item-action active" id="boardAll">--%>
-<%--                        전체--%>
-<%--                        <span class="badge badge-primary badge-pill" id="boardTotalCnt"></span>--%>
-<%--                    </li>--%>
-<%--                </ul>--%>
-<%--                </ul>--%>
-<%--            </div>--%>
-<%--        </div>--%>
+        <%--        <div class="col-lg-3">--%>
+        <%--            <h1 class="my-4">게시판</h1>--%>
+        <%--            <div class="list-group">--%>
+        <%--                <ul class="list-group" id="categoryList">--%>
+        <%--                    <li class="list-group-item list-group-item-action active" id="boardAll">--%>
+        <%--                        전체--%>
+        <%--                        <span class="badge badge-primary badge-pill" id="boardTotalCnt"></span>--%>
+        <%--                    </li>--%>
+        <%--                </ul>--%>
+        <%--                </ul>--%>
+        <%--            </div>--%>
+        <%--        </div>--%>
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-12">
 
             <div class="card mt-4">
-<%--                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">--%>
+                <%--                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">--%>
                 <div class="card-body">
                     <h3 class="card-title" id="boardTitle"></h3>
                     <span class="badge rounded-pill bg-light" id="categoryNm">Light</span>
@@ -90,25 +91,33 @@
 
                     <p id="boardViewCnt" style="font-size: 0.9rem"></p>
                     <p id="boardRcmdCnt"></p>
-                    <button type="button" class="btn btn-outline-secondary" id="btnBoardEdit" style="display: none">수정</button>
-                    <button type="button" class="btn btn-outline-secondary" id="btnBoardDelete" style="display: none">삭제</button>
+                    <button type="button" class="btn btn-outline-secondary" id="btnBoardEdit" style="display: none">수정
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" id="btnBoardDelete" style="display: none">
+                        삭제
+                    </button>
                 </div>
 
             </div>
             <!-- /.card -->
 
-           <div class="card card-outline-secondary my-4">
+            <div class="card card-outline-secondary my-4">
                 <div class="card-header">
                     댓글
+                    <span class="badge rounded-pill bg-light" id="cmmtCnt"></span>
                 </div>
-                <div class="card-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <a href="#" class="btn btn-success">Leave a Review</a>
+                <div class="card-body" id="bodyCmmt">
+                    <%--                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore,--%>
+                    <%--                        similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.--%>
+                    <%--                        Sequi mollitia, necessitatibus quae sint natus.</p>--%>
+                    <%--                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>--%>
+                    <%--                    <hr>--%>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="댓글을 남겨주세요" id="cmmtContent">
+                    <button class="input-group-text" id="btnRegCmmt">commit</button>
                 </div>
             </div>
             <!-- /.card -->
@@ -130,7 +139,7 @@
     $(document).ready(function () {
         let boardNo = document.location.href.split(baseUrl + "/board/detail/")[1];
 
-        //게시글 상세 정보
+        // 게시글 상세 정보
         $.ajax({
             url: baseUrl + '/api/board/info/' + boardNo,
             type: 'GET',
@@ -147,7 +156,7 @@
                 $('#boardRcmdCnt').text('추천수 : ' + result.data.boardInfo.boardRcmdCnt);
                 $('#boardRegInfo').text(result.data.boardInfo.regDate + ' / ' + result.data.boardInfo.member.memberId + '(' + result.data.boardInfo.member.memberNm + ')');
 
-                if('${username}' === result.data.boardInfo.member.memberId) {
+                if ('${username}' === result.data.boardInfo.member.memberId) {
                     $('#btnBoardEdit').show();
                     $('#btnBoardDelete').show();
                 }
@@ -157,15 +166,15 @@
             }
         });
 
-        //수정 버튼
+        // 수정 버튼
         $('#btnBoardEdit').on('click', function () {
             location.href = '/board/edit/' + boardNo;
         });
 
-        //삭제 버튼
+        // 삭제 버튼
         $('#btnBoardDelete').on({
             click: function () {
-                if(confirm('삭제하시겠습니까?') == true) {
+                if (confirm('삭제하시겠습니까?') == true) {
                     $.ajax({
                         url: baseUrl + '/api/board/delete/' + boardNo,
                         type: 'GET',
@@ -173,6 +182,61 @@
                             location.href = '/member';
                         }, error: function (error) {
                             console.log('error');
+                        }
+                    })
+                }
+            }
+        })
+
+        // 댓글
+        $.ajax({
+            url: baseUrl + '/api/comment/list/' + boardNo,
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+            },
+            success: function (result) {
+                // console.log(result);
+                $('#cmmtCnt').text(result.data.commentCnt);
+
+                $.each(result.data.commentList, function (key, obj) {
+                    $('#bodyCmmt').append($('<p />', {
+                        text: obj.commentContent
+                    })).append($('<small />', {
+                        text: 'Posted by ' + obj.memberName + ' on ' + obj.regDate,
+                        class: 'text-muted'
+                    }))
+
+                    if (key < (result.data.commentList).length - 1) {
+                        $('#bodyCmmt').append($('<hr />'));
+                    };
+                })
+            }, error: function (error) {
+                console.log('error');
+            }
+        })
+
+        // 댓글 등록 버튼
+        $('#btnRegCmmt').on({
+            click: function () {
+                if (confirm('댓글을 등록하시겠습니까?') == true) {
+                    $.ajax({
+                        url: baseUrl + '/api/comment/register',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            'boardNo': boardNo,
+                            'commentContent': $('#cmmtContent').val()
+                        }),
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                        },
+                        success: function (result) {
+                            console.log(result);
+                            location.reload();
+                        }, error: function (error) {
+                            console.log(error);
                         }
                     })
                 }

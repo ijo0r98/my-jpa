@@ -8,13 +8,14 @@ import com.study.boot.member.service.MemberService;
 import com.study.boot.payload.request.BoardRequest;
 import com.study.boot.payload.response.ApiResponse;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/board")
 public class BoardApiController {
 

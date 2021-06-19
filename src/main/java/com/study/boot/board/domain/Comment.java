@@ -32,4 +32,6 @@ public class Comment extends DateEntity {
     @Column(length = 500, nullable = false)
     private String commentContent;
 
+
+
 }
