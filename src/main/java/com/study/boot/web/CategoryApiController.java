@@ -37,6 +37,7 @@ public class CategoryApiController {
     public ResponseEntity<?> addNewCategory(@RequestBody Map<String, Object> params) {
         ApiResponse apiResponse = new ApiResponse(true, "카테고리 추가");
         categoryService.addCategory(params.get("categoryName").toString());
+        System.out.println(params.get("categoryName").toString());
 
         return ResponseEntity.ok(apiResponse);
     }
