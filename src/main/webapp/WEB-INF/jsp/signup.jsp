@@ -11,69 +11,68 @@
 </head>
 <body>
 <sec:csrfMetaTags />
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand" href="/login">By JURAN</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-<%--                <li class="nav-ite">--%>
-<%--                    <a class="nav-link" href="#">Home--%>
-<%--                        <span class="sr-only">(current)</span>--%>
-<%--                    </a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item">--%>
-<%--                    <a class="nav-link" href="#">Mypage</a>--%>
-<%--                </li>--%>
-            </ul>
-        </div>
-    </div>
-</nav>
 
-<div class="container">
+<jsp:include page="navigation.jsp" flush="false"/>
+<div class="container py-lg-5">
     <div class="row">
-        <div class="col-lg-12 ">
-            <h1 class="mt-5"></h1>
-            <p class="lead">회원가입</p>
-            <ul class="list-unstyled">
+        <div class="container my-5">
+            <form>
                 <fieldset>
-                    <legend>양식을 모두 입력해 주세요</legend>
-                    <div class="form-group">
-                        <label for="memberName">이름</label>
-                        <input type="text" class="form-control" id="memberName" placeholder="Name">
+                    <legend>양식을 모두 작성해 주세요</legend>
+                    <br/><br/>
+                    <br/>
+                    <div class="form-group row">
+                        <label for="memberName" class="col-sm-2 col-form-label">이름</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="memberName" placeholder="Name" style="width: 770px;">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="memberId">아이디</label>
-                        <input type="text" class="form-control" id="memberId" aria-describedby="idHelp" placeholder="Id">
-                        <d id="idAvailable" class="valid-feedback" style="display: none;"></d>
-                        <d id="idNotAvailable" class="invalid-feedback" style="display: none;"></d>
-<%--                        <br />--%>
-                        <button type="button" class="btn btn-outline-secondary btn-sm" id="btnCheckDuplication">중복확인</button>
-
+                    <br>
+                    <div class="form-group row">
+                        <label for="memberId" class="col-sm-2 col-form-label">아이디</label>
+                        <div class="col-sm-10">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="memberId" placeholder="Id">
+                                <button type="button" class="btn btn-primary" id="btnCheckDuplication">중복 확인</button>
+                                <d id="idAvailable" class="valid-feedback" style="display: none;"></d>
+                                <d id="idNotAvailable" class="invalid-feedback" style="display: none;"></d>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="memberEmail">이메일 주소</label>
-                        <input type="email" class="form-control" id="memberEmail" placeholder="Email">
+                    <br>
+                    <div class="form-group row">
+                        <label for="memberEmail" class="col-sm-2 col-form-label">이메일 주소</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="memberEmail" placeholder="Email" style="width: 770px;">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="memberPw">비밀번호</label>
-                        <input type="password" class="form-control" id="memberPw" placeholder="Password">
-                        <small class="emailHelp" >최소 8자 이상 숫자와 문자, 특수 문자가 포함되어야 합니다.</small>
+                    <br>
+                    <div class="form-group row">
+                        <label for="memberPw" class="col-sm-2 col-form-label">비밀번호</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="memberPw" placeholder="Password" style="width: 770px;">
+                            <small class="emailHelp" >최소 8자 이상 숫자와 문자, 특수 문자가 포함되어야 합니다.</small>
+                        </div>
                     </div>
+                    <br>
+                    <div class="form-group row">
+                        <label for="memberTell" class="col-sm-2 col-form-label">핸드폰 번호</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="memberTell" placeholder="Tell" style="width: 770px;">
+                        </div>
+                    </div>
+                    <br>
                     <div class="form-group">
-                        <label for="memberTell">핸드폰 번호</label>
-                        <input type="text" class="form-control" id="memberTell" placeholder="Tell">
+                        <button type="button" id="btnSignup" class="btn btn-secondary my-2 my-sm-0">가입</button>
                     </div>
                 </fieldset>
-                <div class="form-group">
-                    <button type="button" id="btnSignup" class="btn btn-secondary">가입</button>
-                </div>
-            </ul>
+            </form>
         </div>
     </div>
 </div>
+
+<jsp:include page="footer.jsp" flush="false"/>
+
 </body>
 <script type="text/javascript" src="<c:url value="../../js/jquery-1.12.4.js"/> "></script>
 <script type="text/javascript" src="<c:url value="../../js/common.js"/> "></script>

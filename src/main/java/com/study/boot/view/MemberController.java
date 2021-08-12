@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MemberController {
 
-    // 메인페이지
-    @GetMapping("/")
-    public String home() {
-        return "home";
+    // jsp 테스트
+    @GetMapping("/test")
+    public String test() {
+        return "test";
     }
 
     // 회원가입 폼
@@ -23,7 +23,7 @@ public class MemberController {
     }
 
     // 마이페이지 메인
-    @GetMapping("/member/mypage")
+    @GetMapping("/member")
     public String myPage() {
         return "member/mypage";
     }

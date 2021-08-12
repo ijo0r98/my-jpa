@@ -74,7 +74,7 @@ public class BoardApiController {
     @GetMapping("list/{categoryNo}")
     public ResponseEntity<?> boardListByCategory(@PathVariable(name = "categoryNo") long categoryNo) {
         ApiResponse apiResponse = new ApiResponse(true, "카테고리별 게시물 조회");
-        apiResponse.putData("boardList", boardService.findBoardByCategory(categoryNo));
+        apiResponse.putData("boardList", boardService.findBoardAllByCategoryNo(categoryNo));
 
         return ResponseEntity.ok(apiResponse);
     }

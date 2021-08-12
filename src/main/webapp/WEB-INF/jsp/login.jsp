@@ -10,45 +10,46 @@
     <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand">By JURAN</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-        </div>
-    </div>
-</nav>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            <h1 class="mt-5"></h1>
-            <p class="lead">아이디와 비밀번호를 입력해 주세요</p>
-            <ul class="list-unstyled">
-                <form action="/login" method="post">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                <li>
-                    <input type="text" class="form-control" placeholder="ID" style="width: 600px; margin: auto" name="username">
-                    <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>
-                </li>
-                <li>
-                    <input type="password" class="form-control" placeholder="PWD" style="width: 600px; margin: auto" name="password">
-                </li>
-                <li>
-                    <c:if test="${not empty errorMsg}">
-                        ${errorMsg}
-                    </c:if>
-                </li>
-                <li>
-                    <button type="submit" class="btn btn-secondary">로그인</button>
-                </li>
-                </form>
-                <button type="button" onclick="location.href='/signup'" class="btn btn-secondary">회원가입</button>
-            </ul>
+<jsp:include page="navigation.jsp" flush="false"/>
+
+<!-- Content section-->
+<div class="py-lg-5">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="form-label mt-4">이메일과 비밀번호를 입력해 주세요</label>
+                    <form action="/login" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="username">
+                            <label for="floatingInput">Email address</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+                            <label for="floatingPassword">Password</label>
+                        </div>
+                        <div>
+                            <c:if test="${not empty errorMsg}">
+                                ${errorMsg}
+                            </c:if>
+                        </div>
+                        <br/>
+                        <button type="submit" class="btn btn-secondary align-content-center" >로그인</button>
+                    </form>
+
+                    <br/>
+                    <br/>
+
+                    아직 회원이 아니라면 이곳을 눌러주세요 &nbsp; <a href="/signup">click!</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<jsp:include page="footer.jsp" flush="false"/>
+
 </body>
 </html>

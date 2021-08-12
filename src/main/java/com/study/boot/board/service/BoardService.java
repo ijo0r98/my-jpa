@@ -64,7 +64,7 @@ public class BoardService {
     }
 
     @Transactional
-    public List<BoardDto> findBoardByCategory(long categoryNo) {
+    public List<BoardDto> findBoardAllByCategoryNo(long categoryNo) {
         return boardRepository.findBoardAllByCategoryNo(categoryNo);
 //        List<Board> boards = boardRepository.findAllByCategory_CategoryNo(categoryNo);
 //        return boards.stream().map(b -> new BoardDto(b)).collect(Collectors.toList());

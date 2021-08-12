@@ -6,8 +6,16 @@ $(document).ready(function () {
     header = $("meta[name='_csrf_header']").attr("content");
 });
 
-// Li 카테고리 리스트
-function addCategoryList(type, categoryNo) {
+function checkCategoryActive(value, categoryNo){
+    if(value != categoryNo) {
+        return 'list-group-item d-flex justify-content-between align-items-center'
+    } else {
+        return 'list-group-item d-flex justify-content-between align-items-center active'
+    }
+}
+
+// 카테고리 리스트
+function addCategoryList(value) {
     let cntAll = 0;
 
     $.ajax({
@@ -23,19 +31,21 @@ function addCategoryList(type, categoryNo) {
             $.each(result.data.categoryList, function (key, obj) {
                 cntAll += obj.boardCnt;
                 $('#categoryList').append($('<li />', {
-                    class: 'list-group-item list-group-item-action',
+                    class: checkCategoryActive(value, obj.categoryNo),
                     text: obj.categoryName,
                     value: obj.categoryNo,
+                    id: obj.categoryNo,
                     click: function () {
-                        $(this).attr('class', 'list-group-item list-group-item-action active');
-                        $(this).siblings().attr('class', 'list-group-item list-group-item-action');
-                        addBoardListByCategory($(this).val());
+                        $(this).attr('class', 'list-group-item d-flex justify-content-between align-items-center active');
+                        $(this).siblings().attr('class', 'list-group-item d-flex justify-content-between align-items-center');
+                        location.href = '/category/' + obj.categoryNo;
                     }
                 }).append($('<span />', {
-                    class: 'badge badge-primary badge-pill',
+                    class: 'badge bg-primary rounded-pill',
                     text: obj.boardCnt
                 })));
             });
+
             $('#boardTotalCnt').text(cntAll);
 
         }, error: function(error) {
@@ -57,29 +67,34 @@ function addBoardListByCategory(value) {
             success: function (result) {
                 // console.log('success');
 
-                $('#tBodyBoardList').empty();
+                $('#divPost').empty();
                 $.each(result.data.boardList, function (key, obj) {
-                    $('#tBodyBoardList').append($('<tr />', {
-                        mouseover: function () {
-                            $(this).css("background-color", "#f4f4f4");
-                        },
-                        mouseout: function () {
-                            $(this).css("background-color", "#ffffff");
-                        },
-                        click: function () {
-                            location.href = '/board/detail/' + obj.boardNo;
-                        }
-                    }).append($('<td />', {
-                        text: obj.boardTitle
-                    })).append($('<td />', {
-                        text: obj.member.memberId
-                    })).append($('<td />', {
+                    $('#divPost').append($('<div />', {
+                        class: 'col-lg-6'
+                    }).append($('<div />', {
+                        class: 'card mb-4'
+                    }).append($('<a />', {
+                        href: '#!'
+                    })).append($('<img />', {
+                        class: 'card-img-top',
+                        src:"https://dummyimage.com/700x350/dee2e6/6c757d.jpg",
+                        alt:"..."
+                    })).append($('<div />', {
+                        class: 'card-body'
+                    }).append($('<div />', {
+                        class: 'small text-muted',
                         text: dateFormat(obj.regDate)
-                    })).append($('<td />', {
-                        text: obj.boardViewCnt
-                    })).append($('<td />', {
-                        text: obj.boardRcmdCnt
-                    })));
+                    })).append($('<h2 />', {
+                        class: 'card-title h4',
+                        text: obj.boardTitle
+                    })).append($('<p />', {
+                        class: 'card-text',
+                        text: obj.member.memberId
+                    })).append($('<a />', {
+                        class: 'btn btn-primary',
+                        href: '/post/' + obj.category.categoryNo +'/' + obj.boardNo,
+                        text: 'Read more →'
+                    })))))
                 });
             }, error: function (error) {
                 console.log('error' + error);
@@ -94,32 +109,36 @@ function addBoardListByCategory(value) {
                 xhr.setRequestHeader(header, token);
             },
             success: function (result) {
-                // console.log('success');
+                console.log(result.data.boardList);
 
-                $('#tBodyBoardList').empty();
+                $('#divPost').empty();
                 $.each(result.data.boardList, function (key, obj) {
-                    $('#tBodyBoardList').append($('<tr />', {
-                        mouseover: function () {
-                            $(this).css("background-color", "#f4f4f4");
-                        },
-                        mouseout: function () {
-                            $(this).css("background-color", "#ffffff");
-                        },
-                        click: function () {
-                            // console.log(obj.boardNo);
-                            location.href = '/board/detail/' + obj.boardNo;
-                        }
-                    }).append($('<td />', {
-                        text: obj.boardTitle
-                    })).append($('<td />', {
-                        text: obj.memberId
-                    })).append($('<td />', {
+                    $('#divPost').append($('<div />', {
+                        class: 'col-lg-6'
+                    }).append($('<div />', {
+                        class: 'card mb-4'
+                    }).append($('<a />', {
+                        href: '#!'
+                    })).append($('<img />', {
+                        class: 'card-img-top',
+                        src:"https://dummyimage.com/700x350/dee2e6/6c757d.jpg",
+                        alt:"..."
+                    })).append($('<div />', {
+                        class: 'card-body'
+                    }).append($('<div />', {
+                        class: 'small text-muted',
                         text: dateFormat(obj.regDate)
-                    })).append($('<td />', {
-                        text: obj.boardViewCnt
-                    })).append($('<td />', {
-                        text: obj.boardRcmdCnt
-                    })));
+                    })).append($('<h2 />', {
+                        class: 'card-title h4',
+                        text: obj.boardTitle
+                    })).append($('<p />', {
+                        class: 'card-text',
+                        text: obj.memberNm
+                    })).append($('<a />', {
+                        class: 'btn btn-primary',
+                        href: '/post/' + obj.categoryNo +'/' + obj.boardNo,
+                        text: 'Read more →'
+                    })))));
                 });
             }, error: function (error) {
                 console.log('error' + error);
