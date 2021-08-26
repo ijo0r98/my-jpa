@@ -34,7 +34,7 @@ public class CommentApiController {
     private Long categoryNo;
 
     @GetMapping("list/board/{boardNo}")
-    public ResponseEntity<?> commentListByBoardNo(@PathVariable(value = "boardNo") Long boardNo) {
+    public ResponseEntity<?> listByBoardNo(@PathVariable(value = "boardNo") Long boardNo) {
 
         List<CommentDto> commentDtoList = commentService.findCommentAllByBoardNo(boardNo);
 
@@ -45,12 +45,9 @@ public class CommentApiController {
     }
 
     @GetMapping("list/me")
-    public ResponseEntity<?> commentAllByMemberNo(Authentication authentication,
+    public ResponseEntity<?> listByMemberNo(Authentication authentication,
                                                    @RequestParam(value = "categoryNo", required = false) Long categoryNo) {
 
-//        Long value = categoryNo.isPresent() ? categoryNo.getAsLong() : null;
-//        log.info("categoryNo : " + categoryNo);
-//        log.info("categoryNo(2) : " + value);
         String userId = authentication.getPrincipal().toString();
         ApiResponse apiResponse = new ApiResponse(true, "사용자별 댓글 조회");
         apiResponse.putData("commentList", commentService.findCommentAllByMemberNo(userId, categoryNo));
@@ -58,7 +55,7 @@ public class CommentApiController {
     }
 
     @PostMapping("register")
-    public ResponseEntity<?> registerComment(@Valid @RequestBody CommentRequest commentRequest, Authentication authentication){
+    public ResponseEntity<?> register(@Valid @RequestBody CommentRequest commentRequest, Authentication authentication){
 
         Member member = memberService.loadUserByUsername(authentication.getPrincipal().toString());
         Board board = boardService.findBoardByNo(commentRequest.getBoardNo());

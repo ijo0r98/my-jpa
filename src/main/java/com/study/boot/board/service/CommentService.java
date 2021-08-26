@@ -21,11 +21,6 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public List<CommentDto> findCommentAllByBoardNo(long boardNo) {
-        return commentRepository.findCommentAllByBoardNo(boardNo);
-    }
-
-    @Transactional
     public void registerComment(CommentRequest commentRequest, Member member, Board board) {
 
         Comment comment = new Comment();
@@ -39,6 +34,11 @@ public class CommentService {
         comment.setUpdateDate(now);
 
         commentRepository.save(comment);
+    }
+
+    @Transactional
+    public List<CommentDto> findCommentAllByBoardNo(long boardNo) {
+        return commentRepository.findCommentAllByBoardNo(boardNo);
     }
 
     @Transactional

@@ -32,7 +32,6 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
                 .fetch();
 
 //        return comments.stream().map(c -> new CommentDto(c)).collect(Collectors.toList());
-
         return comments.stream().map(c -> CommentDto.builder()
                 .commentContent(c.getCommentContent())
                 .commentNo(c.getCommentNo())

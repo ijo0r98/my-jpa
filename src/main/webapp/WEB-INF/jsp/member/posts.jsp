@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <label for="categoryList" class="form-label mt-4">카테고리</label>
                     <select class="form-select" id="categoryList" style="width: 200px;">
-                        <option selected="" value="all">전체</option>
+                        <option selected="" value="">전체</option>
                     </select>
                 </div>
             </div>

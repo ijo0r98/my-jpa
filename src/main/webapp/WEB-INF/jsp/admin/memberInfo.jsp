@@ -195,7 +195,7 @@
         });
 
         $.ajax({
-            url: baseUrl + '/api/board/list/member/' + memberNo,
+            url: baseUrl + '/api/board/list/admin/' + memberNo,
             type: 'GET',
             contentType: 'application/json',
             headers: {

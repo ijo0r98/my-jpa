@@ -64,15 +64,8 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public List<BoardDto> findBoardAllByCategoryNo(long categoryNo) {
+    public List<BoardDto> findBoardAllByCategoryNo(Long categoryNo) {
         return boardRepository.findBoardAllByCategoryNo(categoryNo);
-//        List<Board> boards = boardRepository.findAllByCategory_CategoryNo(categoryNo);
-//        return boards.stream().map(b -> new BoardDto(b)).collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public List<BoardDto> findBoardByMemberId(String memberName) {
-        return boardRepository.findBoardAllByMemberId(memberName);
     }
 
     @Transactional(readOnly = true)
@@ -81,9 +74,8 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public List<BoardDto> findBoardByMemberIdAndCategory(String memberName, long categoryNo) {
+    public List<BoardDto> findBoardByMemberIdAndCategory(String memberName, Long categoryNo) {
         return boardRepository.findBoardAllByMemberIdAndCategoryNo(memberName, categoryNo);
     }
-
 
 }

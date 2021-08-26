@@ -52,14 +52,15 @@ function addCategoryList(value) {
     });
 }
 
-// 카테고리별 전체 게시물 리스트
+// 메인 > 카테고리별 전체 게시물 리스트
 function addBoardListByCategory(value) {
-    let url = value != 'all' ? baseUrl + '/api/board/list/' + value : baseUrl + '/api/board/list/';
-
     $.ajax({
-        url: url,
+        url: baseUrl + '/api/board/list',
         type: 'GET',
         contentType: 'application/json',
+        data:{
+          categoryNo: value,
+        },
         beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
         },
@@ -101,16 +102,15 @@ function addBoardListByCategory(value) {
     });
 }
 
-// 마이페이지 사용자가 작성한 게시물 리스트
+// 마이페이지 > 사용자가 작성한 게시물 리스트
 function addBoardListMe(value) {
-
-    let url = baseUrl + '/api/board/list/me/';
-    if (value != 'all') url += value;
-
     $.ajax({
-        url: url,
+        url: baseUrl + '/api/board/list/me',
         type: 'GET',
         contentType: 'application/json',
+        data: {
+            categoryNo: value,
+        },
         beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
         },
@@ -145,5 +145,4 @@ function addBoardListMe(value) {
             console.log('error' + error);
         }
     });
-
 }

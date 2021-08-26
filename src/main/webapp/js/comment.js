@@ -6,8 +6,8 @@ $(document).ready(function () {
     header = $("meta[name='_csrf_header']").attr("content");
 });
 
+// 마이페이지 > 사용자가 작성한 댓글 리스트
 function addCommentListMe(value) {
-
     $.ajax({
         url: baseUrl + '/api/comment/list/me',
         type: 'GET',
@@ -47,5 +47,4 @@ function addCommentListMe(value) {
             console.log(error)
         }
     });
-
 }

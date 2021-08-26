@@ -125,7 +125,7 @@
         addCategoryList('all');
 
         // 처음 화면 전체 게시물 리스트 출력
-        addBoardListByCategory('all');
+        addBoardListByCategory("");
 
         $('#registerBoard').on({
             click: function () {
@@ -139,7 +139,7 @@
                 $(this).attr('class', 'list-group-item d-flex justify-content-between align-items-center active');
                 $(this).siblings().attr('class', 'list-group-item d-flex justify-content-between align-items-center');
 
-                addBoardListByCategory('all');
+                addBoardListByCategory('');
             }
         })
     });
