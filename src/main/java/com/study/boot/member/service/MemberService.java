@@ -84,6 +84,8 @@ public class MemberService implements UserDetailsService {
 
     @Transactional
     public List<MemberDto> findMemberByRole(String role) {
+        log.info("service ### role : " + role);
+        log.info("toRole(role) : " + toRole(role));
         return memberRepository.findAllByMemberRole(toRole(role));
     }
 

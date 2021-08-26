@@ -83,7 +83,7 @@ public class MemberApiController {
 
     @GetMapping("/list")
     public ResponseEntity<?> findMemberByRole(@RequestParam(value = "role", required = false) String role) {
-        System.out.println(role);
+        log.info("role : " + role);
         ApiResponse apiResponse = new ApiResponse(true, "사용자 권한별 조회 -" + role);
         apiResponse.putData("memberList", memberService.findMemberByRole(role));
 

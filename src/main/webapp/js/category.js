@@ -9,7 +9,6 @@ $(document).ready(function () {
 
 // 새로운 카테고리 추가
 function addCategory(categoryName) {
-
     $.ajax({
         url: baseUrl + '/api/category/add',
         type: 'POST',

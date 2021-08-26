@@ -1,6 +1,5 @@
 package com.study.boot.member.repository;
 
-import antlr.StringUtils;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.study.boot.member.domain.Member;

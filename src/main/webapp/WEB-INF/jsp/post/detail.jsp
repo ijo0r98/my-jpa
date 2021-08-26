@@ -184,6 +184,7 @@
                 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
             },
             success: function (result) {
+                console.log(result)
                 // $('#cmmtCnt').text(result.data.commentCnt);
 
                 $.each(result.data.commentList, function (key, obj) {

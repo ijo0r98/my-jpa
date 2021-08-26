@@ -153,6 +153,7 @@
 
     function addMemberList(role) {
         $('#tBodyMemberList').empty();
+
         $.ajax({
             url: baseUrl + '/api/member/list',
             type: 'GET',

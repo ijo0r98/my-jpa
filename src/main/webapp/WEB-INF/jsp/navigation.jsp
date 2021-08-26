@@ -12,15 +12,17 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/about.html">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+                </sec:authorize>
                 <li>
                     <sec:authorize access="isAnonymous()">
                         <button type="button" class="btn btn-secondary my-2 my-sm-0" onclick="location.href='/login'">LOGIN</button>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <sec:authentication property="principal" var="username"/>
-                         <li class="nav-item" ><a href="/member/mypage" class="nav-link">MyPage</a></li>
-                        <li class="nav-link active" >&nbsp; ${username}</li>
+                        <li class="nav-item" ><a href="/mypage/posts" class="nav-link">MyPage</a></li>
+                        <li class="nav-link active">&nbsp; ${username}</li>
                         <button type="button" class="btn btn-secondary my-2 my-sm-0" onclick="location.href='/logout'">LOGOUT</button>
                     </sec:authorize>
                 </li>

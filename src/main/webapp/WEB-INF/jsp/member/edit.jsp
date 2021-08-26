@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
@@ -11,111 +11,89 @@
     <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
 </head>
 <body>
-<sec:csrfMetaTags />
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+<sec:authorize access="isAnonymous()">
+
+</sec:authorize>
+
+<sec:authorize access="isAuthenticated()">
+    <sec:csrfMetaTags/>
+
+    <jsp:include page="../navigation.jsp" flush="false"/>
+
     <div class="container">
-        <sec:authentication property="principal" var="username"/>
-        <a class="navbar-brand" href="/">${username}님 반갑습니다!</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/member/mypage">Mypage</a>
-                </li>
-                <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Admin</a>
-                    </li>
-                </sec:authorize>
-                <form action="/logout" method="POST">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    <sec:authorize access="isAuthenticated()">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">LOGOUT</button>
-                    </sec:authorize>
-                </form>
-            </ul>
+        <div class="row">
+
+            <jsp:include page="mypage.jsp" flush="false"/>
+
+            <div class="col-lg-9">
+                <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel"></div>
+                <div class="row">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">MyPage</li>
+                        <li class="breadcrumb-item active">정보 수정</li>
+                    </ol>
+
+                    <div class="card mt-4">
+                        <div class="form-group">
+                            <label class="form-label mt-4">비밀번호</label>
+                            <div class="input-group mb-3" >
+                                <input id="inputPw" type="password" class="form-control" placeholder="Password" autocomplete="off" >
+                                <button class="btn btn-primary" type="button" id="btnCheckPw">확인</button>
+                                <d id="invalidPw" class="invalid-feedback" style="display:none;">잘못된 비밀번호 입니다.</d>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.card -->
+
+                <div class="row">
+                    <div class="card mt-4" style="display: none;" id="editForm">
+                        <div class="card-header">
+                            정보 수정
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="memberName" class="col-sm-2 col-form-label">이름</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="memberName" disabled="true">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group row">
+                                <label for="memberId" class="col-sm-2 col-form-label">아이디</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="memberId" disabled="true">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group row">
+                                <label for="memberEmail" class="col-sm-2 col-form-label">이메일</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="memberEmail">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group row">
+                                <label for="memberTell" class="col-sm-2 col-form-label">전화번호</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="memberTell">
+                                </div>
+                            </div>
+                            <br>
+                            <button type="button" class="btn btn-outline-secondary" id="btnEditInfo">수정</button>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <!-- /.col-lg-9 -->
         </div>
+        <!-- /.row -->
     </div>
-</nav>
-</nav>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-3">
-            <h1 class="my-4">MY PAGE</h1>
-            <div class="list-group">
-                <ul class="list-group" id="categoryList">
-                    <li class="list-group-item list-group-item-action" id="boardAll" onClick="location.href='/member/mypage'">
-                        내 게시물
-                    </li>
-                    <li class="list-group-item list-group-item-action" >
-                        댓글 관리
-                    </li>
-                    <li class="list-group-item list-group-item-action active" onClick="location.href='/member/edit'">
-                        정보 수정
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- /.col-lg-3 -->
-
-        <div class="col-lg-9">
-
-            <div class="card mt-4">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="inputPw">비밀번호</label>
-                        <input type="password" class="form-control" id="inputPw" placeholder="Password">
-                        <d id="invalidPw" class="invalid-feedback" style="display: none;">잘못된 비밀번호 입니다.</d>
-                    </div>
-                    <button type="button" class="btn btn-outline-secondary" id="btnCheckPw">확인</button>
-                </div>
-
-            </div>
-            <!-- /.card -->
-
-            <div class="card card-outline-secondary my-4" style="display: none;" id="editForm">
-                <div class="card-header">
-                    정보 수정
-                </div>
-                <div class="card-body" >
-                    <div class="form-group">
-                        <label for="memberName">이름</label>
-                        <input type="text" class="form-control" id="memberName" disabled="true">
-                    </div>
-                    <div class="form-group">
-                        <label for="memberId">아이디</label>
-                        <input type="text" class="form-control" id="memberId" disabled="true">
-                    </div>
-                    <div class="form-group">
-                        <label for="memberEmail">이메일</label>
-                        <input type="text" class="form-control" id="memberEmail" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="memberTell">핸드폰 번호</label>
-                        <input type="text" class="form-control" id="memberTell" placeholder="Tell">
-                    </div>
-
-                    <button type="button" class="btn btn-outline-secondary" id="btnEditInfo">수정</button>
-                </div>
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col-lg-9 -->
-
-    </div>
-    <!-- /.row -->
-
-</div>
-<!-- /.container -->
+    <!-- /.container -->
+</sec:authorize>
 
 </body>
 <script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
@@ -125,7 +103,15 @@
 
     $(document).ready(function () {
 
-        let memberNo;
+        $('#edit').addClass('active');
+
+        // 엔터키로 버튼 클릭
+        $('#inputPw').keydown(function (keyNum) {
+            if(keyNum.keyCode == 13) {
+                // console.log('enter!')
+                $('#btnCheckPw').click();
+            }
+        })
 
         $('#btnCheckPw').on({
             click: function () {
@@ -137,11 +123,11 @@
                         "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
                     },
                     data: JSON.stringify({
-                        'password' : $('#inputPw').val()
+                        'password': $('#inputPw').val()
                     }),
                     success: function (result) {
                         // console.log(result);
-                        if(result == true) {
+                        if (result == true) {
                             showEditForm();
 
                             // 기존 등록된 사용자 정보
@@ -180,9 +166,10 @@
             }
         });
 
+        // 수정 버튼
         $('#btnEditInfo').off('click').on({
             click: function () {
-                if(confirm('정보를 변경하시겠습니까?') == true) {
+                if (confirm('정보를 변경하시겠습니까?') == true) {
                     if (checkEmail($('#memberEmail').val()) == false) {
                         alert('이메일 형식이 맞지 않습니다.');
                         $('#memberEmail').focus();
@@ -219,7 +206,7 @@
     // 사용자 정보 수정 입력 칸
     function showEditForm() {
         $('#editForm').show();
-        $("#inputPw").attr("disabled",true);
+        $("#inputPw").attr("disabled", true);
         $('#invalidPw').hide();
     }
 

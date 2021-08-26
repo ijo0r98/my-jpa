@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,10 +33,16 @@ public class CommentService {
 
         comment.setMember(member);
         comment.setBoard(board);
+        comment.setCategory(board.getCategory());
         comment.setCommentContent(commentRequest.getCommentContent());
         comment.setRegDate(now);
         comment.setUpdateDate(now);
 
         commentRepository.save(comment);
+    }
+
+    @Transactional
+    public List<CommentDto> findCommentAllByMemberNo(String username, Long categoryNo) {
+        return commentRepository.findCommentAllByMemberNo(username, categoryNo);
     }
 }

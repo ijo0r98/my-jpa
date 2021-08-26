@@ -63,25 +63,27 @@ public class BoardService {
         boardRepository.deleteById(boardNo);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<BoardDto> findBoardAllByCategoryNo(long categoryNo) {
         return boardRepository.findBoardAllByCategoryNo(categoryNo);
 //        List<Board> boards = boardRepository.findAllByCategory_CategoryNo(categoryNo);
 //        return boards.stream().map(b -> new BoardDto(b)).collect(Collectors.toList());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<BoardDto> findBoardByMemberId(String memberName) {
         return boardRepository.findBoardAllByMemberId(memberName);
     }
 
-    @Transactional
-    public List<BoardDto> findBoardByMemberNameAndCategory(String memberName, long categoryNo) {
-        return boardRepository.findBoardAllByMemberIdAndCategoryNo(memberName, categoryNo);
-    }
-
-    @Transactional
+    @Transactional(readOnly = true)
     public List<BoardDto> findBoardByMemberNo(long memberNo) {
         return boardRepository.findBoardAllByMemberNo(memberNo);
     }
+
+    @Transactional(readOnly = true)
+    public List<BoardDto> findBoardByMemberIdAndCategory(String memberName, long categoryNo) {
+        return boardRepository.findBoardAllByMemberIdAndCategoryNo(memberName, categoryNo);
+    }
+
+
 }

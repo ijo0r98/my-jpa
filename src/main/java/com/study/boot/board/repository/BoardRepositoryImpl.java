@@ -19,12 +19,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<BoardDto> findBoardAllByCategoryNo(long categoryNo) {
-//        List<Board> boards = queryFactory
-//                .selectFrom(board)
-//                .where(board.category.categoryNo.eq(categoryNo))
-//                .fetch();
-
+    public List<BoardDto> findBoardAllByCategoryNo(Long categoryNo) {
         List<Board> boards = queryFactory
                 .selectFrom(board)
                 .leftJoin(board.category, category).fetchJoin()

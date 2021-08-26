@@ -25,6 +25,10 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Board> boards = new ArrayList<>();
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
     public void updateCategory(String categoryName) {
         this.categoryName = categoryName;
     }

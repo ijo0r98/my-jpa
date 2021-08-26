@@ -22,16 +22,22 @@ public class MemberController {
         return "signup";
     }
 
-    // 마이페이지 메인
-    @GetMapping("/member")
-    public String myPage() {
-        return "member/mypage";
+    // 마이페이지 > 게시물관리(메인)
+    @GetMapping("/mypage/posts")
+    public String myPosts() {
+        return "member/posts";
     }
 
-    // 개인정보 수정
-    @GetMapping("/member/edit")
-    public String memberEditForm() {
-        return "member/infoEdit";
+    // 마이페이지 > 게시물관리(메인)
+    @GetMapping("/mypage/comments")
+    public String myComments() {
+        return "member/comments";
+    }
+
+    // 마이페이지 > 개인정보 수정
+    @GetMapping("/mypage/edit")
+    public String myInfoEdit() {
+        return "member/edit";
     }
 
 }

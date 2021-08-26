@@ -29,6 +29,11 @@ public class Comment extends DateEntity {
     @JoinColumn(name = "board_no")
     private Board board;
 
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "category_no")
+    private Category category;
+
     @Column(length = 500, nullable = false)
     private String commentContent;
 

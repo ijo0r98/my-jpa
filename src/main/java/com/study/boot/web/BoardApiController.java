@@ -23,14 +23,14 @@ public class BoardApiController {
     private final MemberService memberService;
     private final CategoryService categoryService;
 
-    @GetMapping("list")
-    public ResponseEntity<?> boardListAll() throws Exception {
-
-        ApiResponse apiResponse = new ApiResponse(true, "게시물 전체 조회");
-        apiResponse.putData("boardList", boardService.findBoardAll());
-
-        return ResponseEntity.ok(apiResponse);
-    }
+//    @GetMapping("list")
+//    public ResponseEntity<?> boardListAll() throws Exception {
+//
+//        ApiResponse apiResponse = new ApiResponse(true, "게시물 전체 조회");
+//        apiResponse.putData("boardList", boardService.findBoardAll());
+//
+//        return ResponseEntity.ok(apiResponse);
+//    }
 
     @PostMapping("register")
     public ResponseEntity<?> boardRegister(@Validated @RequestBody BoardRequest boardRequest, Authentication authentication) throws Exception {
@@ -72,7 +72,7 @@ public class BoardApiController {
     }
 
     @GetMapping("list/{categoryNo}")
-    public ResponseEntity<?> boardListByCategory(@PathVariable(name = "categoryNo") long categoryNo) {
+    public ResponseEntity<?> boardListByCategory(@PathVariable(name = "categoryNo", required = false) Long categoryNo) {
         ApiResponse apiResponse = new ApiResponse(true, "카테고리별 게시물 조회");
         apiResponse.putData("boardList", boardService.findBoardAllByCategoryNo(categoryNo));
 
@@ -96,7 +96,7 @@ public class BoardApiController {
     @GetMapping("list/me/{categoryNo}")
     public ResponseEntity<?> boardListByMemberIdAndCategory(Authentication authentication, @PathVariable(name = "categoryNo") long categoryNo) {
         ApiResponse apiResponse = new ApiResponse(true, "본인이 작성한 게시물 카테고리별 조회");
-        apiResponse.putData("boardList", boardService.findBoardByMemberNameAndCategory(authentication.getPrincipal().toString(), categoryNo));
+        apiResponse.putData("boardList", boardService.findBoardByMemberIdAndCategory(authentication.getPrincipal().toString(), categoryNo));
         return ResponseEntity.ok(apiResponse);
     }
 }

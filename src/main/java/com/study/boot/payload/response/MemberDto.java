@@ -14,14 +14,6 @@ public class MemberDto {
     private String regDate;
     private String memberRole;
 
-    public MemberDto(long memberNo, String memberId, String memberName, String regDate, String memberRole) {
-        this.memberNo = memberNo;
-        this.memberId = memberId;
-        this.memberName = memberName;
-        this.regDate = regDate;
-        this.memberRole = memberRole;
-    }
-
     @Builder
     public MemberDto(Member member) {
         this.memberNo = member.getMemberNo();
