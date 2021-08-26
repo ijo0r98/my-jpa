@@ -33,8 +33,8 @@
         <jsp:include page="mypage.jsp" flush="false"/>
 
         <div class="col-lg-9">
-            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel"></div>
-            <div class="row">
+            <div class="carousel slide my-4" data-ride="carousel"></div>
+            <div>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">MyPage</li>
                     <li class="breadcrumb-item active">내 게시물</li>
@@ -49,7 +49,7 @@
             </div>
             <br/>
 
-            <div class="row">
+            <div>
                 <table class="table table-hover">
                     <colgroup>
                         <col style="width:10%"/>

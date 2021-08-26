@@ -13,7 +13,7 @@
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/about.html">About</a></li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/member">Admin</a></li>
                 </sec:authorize>
                 <li>
                     <sec:authorize access="isAnonymous()">

@@ -8,14 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("admin")
 public class AdminController {
 
-    @GetMapping("")
-    public String adminHome() {
-        return "/admin/admin";
+    @GetMapping("member")
+    public String member() {
+        return "/admin/members";
+    }
+
+    @GetMapping("post")
+    public String posts() {
+        return "/admin/posts";
     }
 
     @GetMapping("member/info/{memberNo}")
     public String memberInfo() {
-        return "/admin/memberInfo";
+        return "/admin/info";
     }
 
     @GetMapping("category")

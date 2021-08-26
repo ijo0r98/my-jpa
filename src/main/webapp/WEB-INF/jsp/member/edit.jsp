@@ -28,13 +28,13 @@
 
             <div class="col-lg-9">
                 <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel"></div>
-                <div class="row">
+                <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">MyPage</li>
                         <li class="breadcrumb-item active">정보 수정</li>
                     </ol>
 
-                    <div class="card mt-4">
+                    <div>
                         <div class="form-group">
                             <label class="form-label mt-4">비밀번호</label>
                             <div class="input-group mb-3" >
@@ -48,7 +48,7 @@
                 </div>
                 <!-- /.card -->
 
-                <div class="row">
+                <div>
                     <div class="card mt-4" style="display: none;" id="editForm">
                         <div class="card-header">
                             정보 수정

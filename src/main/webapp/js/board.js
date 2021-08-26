@@ -65,8 +65,6 @@ function addBoardListByCategory(value) {
             xhr.setRequestHeader(header, token);
         },
         success: function (result) {
-            // console.log('success');
-
             $('#divPost').empty();
             $.each(result.data.boardList, function (key, obj) {
                 $('#divPost').append($('<div />', {
@@ -130,7 +128,7 @@ function addBoardListMe(value) {
                     }
                 }).append($('<th />', {
                     scope: 'row',
-                    text: key
+                    text: key + 1
                 })).append($('<td />', {
                     text: obj.boardTitle
                 })).append($('<td />', {
