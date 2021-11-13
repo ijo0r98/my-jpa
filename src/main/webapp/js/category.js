@@ -44,8 +44,8 @@ function deleteCategory(categoryNo) {
     });
 }
 
-function editCategory() {
-
+function editCategory(no, name) {
+    console.log(name)
 }
 
 // 등록된 카테고리 리스트
@@ -68,7 +68,8 @@ function addCategoryListAdmin() {
                     text: obj.boardCnt
                 })).append($('<td />').append($('<button />', {
                     text: '수정',
-                    class: 'badge bg-light'
+                    class: 'badge bg-light',
+                    click: editCategory(obj.categoryNo, obj.categoryName)
                 }))).append($('<td />').append($('<button />', {
                     text: '삭제',
                     class: 'badge bg-light'

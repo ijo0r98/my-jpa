@@ -12,11 +12,11 @@
     <meta name="author" content=""/>
     <title>JPA</title>
     <!-- Favicon-->
+    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
 </head>
 <body>
 <style>
@@ -60,10 +60,33 @@
 <%--                        <a class="btn btn-primary" href="#!">Read more →</a>--%>
 <%--                    </div>--%>
 <%--                </div>--%>
+
                 <!-- Nested row for non-featured blog posts-->
                 <div class="row" id="divPost">
-
+<%--                    <div class="col-lg-6">--%>
+<%--                        <div class="card mb-4">--%>
+<%--                            <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="img">--%>
+<%--                            <div class="card-body">--%>
+<%--                                <div class="small text-muted">2021-08-12</div>--%>
+<%--                                <h2 class="card-title h4">title</h2>--%>
+<%--                                <p class="card-text">memberName</p>--%>
+<%--                                <a class="btn btn-primary" href="/post/1/1">Read more →</a></div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+                    <c:forEach var="board" items="${boardList}" varStatus="status">
+                        <div class="col-lg-6">
+                            <div class="card mb-4">
+                                <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="img">
+                                <div class="card-body">
+                                    <div class="small text-muted">${board.regDate}</div>
+                                    <h2 class="card-title h4">${board.boardTitle}</h2>
+                                    <p class="card-text">${board.memberName}</p>
+                                    <a class="btn btn-primary" href="/post/${board.categoryNo}/${board.boardNo}">Read more →</a></div>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
+
                 <!-- Pagination-->
                 <nav aria-label="Pagination">
                     <hr class="my-0"/>
@@ -80,33 +103,7 @@
                 </nav>
             </div>
             <!-- Side widgets-->
-            <div class="col-lg-4">
-                <!-- Categories widget-->
-                <ul class="list-group" id="categoryList">
-                    <li class="list-group-item d-flex justify-content-between align-items-center active" id="boardAll" onclick="location.href='/'">
-                        전체
-                        <span class="badge bg-primary rounded-pill" id="boardTotalCnt"></span>
-                    </li>
-                </ul><br>
-                <!-- Search widget-->
-                <div class="card mb-4">
-                    <div class="card-header">Search</div>
-                    <div class="card-body">
-                        <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Enter search term..."
-                                   aria-label="Enter search term..." aria-describedby="button-search"/>
-                            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Side widget-->
-                <div class="card mb-4">
-                    <div class="card-header">Side Widget</div>
-                    <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use,
-                        and feature the Bootstrap 5 card component!
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="../side.jsp" flush="false"/>
         </div>
     </div>
 
@@ -122,10 +119,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        addCategoryList('all');
+        // addCategoryList('all');
 
         // 처음 화면 전체 게시물 리스트 출력
-        addBoardListByCategory("");
+        // addBoardListByCategory("");
 
         $('#registerBoard').on({
             click: function () {
@@ -134,14 +131,20 @@
         });
 
         // //카테고리 전체 탭
-        $('#boardAll').off('click').on({
-            click: function () {
-                $(this).attr('class', 'list-group-item d-flex justify-content-between align-items-center active');
-                $(this).siblings().attr('class', 'list-group-item d-flex justify-content-between align-items-center');
+        // $('#categoryList li').off('click').on({
+        //     click: function () {
+        //         $(this).attr('class', 'list-group-item d-flex justify-content-between align-items-center active');
+        //         $(this).siblings().attr('class', 'list-group-item d-flex justify-content-between align-items-center');
+        //
+        //         addBoardListByCategory('');
+        //     }
+        // })
 
-                addBoardListByCategory('');
-            }
-        })
+        if (parseInt(${categoryNo}) >= 1) {
+            $('#categoryList li').eq(${categoryNo}).attr('class', 'list-group-item d-flex justify-content-between align-items-center active');
+        } else {
+            $('#categoryList li').eq(0).attr('class', 'list-group-item d-flex justify-content-between align-items-center active');
+        }
     });
 
 </script>

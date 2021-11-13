@@ -25,6 +25,17 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     }
 
     @Override
+    public List<BoardDto> findBoardAll() {
+        List<Board> boards = queryFactory
+                .selectFrom(board)
+                .leftJoin(board.category, category).fetchJoin()
+                .leftJoin(board.member, member).fetchJoin()
+                .fetch();
+
+        return boards.stream().map(b -> new BoardDto(b)).collect(Collectors.toList());
+    }
+
+    @Override
     public List<BoardDto> findBoardAllByCategoryNo(Long categoryNo) {
         List<Board> boards = queryFactory
                 .selectFrom(board)

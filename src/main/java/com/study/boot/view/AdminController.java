@@ -1,12 +1,18 @@
 package com.study.boot.view;
 
+import com.study.boot.board.service.CategoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("admin")
 public class AdminController {
+
+    private final CategoryService categoryService;
 
     @GetMapping("member")
     public String member() {
@@ -24,7 +30,10 @@ public class AdminController {
     }
 
     @GetMapping("category")
-    public String editCategory() {
-        return "/admin/category";
+    public ModelAndView category() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("category", categoryService.findCategoryCntAll());
+        modelAndView.setViewName("/admin/category");
+        return modelAndView;
     }
 }

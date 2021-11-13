@@ -27,8 +27,8 @@ public class BoardService {
 
 
     @Transactional(readOnly = true)
-    public List<Board> findBoardAll() {
-        return boardRepository.findAll();
+    public List<BoardDto> findBoardAll() {
+        return boardRepository.findBoardAll();
     }
 
     @Transactional(readOnly = true)

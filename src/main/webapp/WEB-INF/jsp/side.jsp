@@ -10,6 +10,12 @@
             전체
             <span class="badge bg-primary rounded-pill" id="boardTotalCnt"></span>
         </li>
+        <c:forEach var="category" items="${categoryList}" varStatus="status">
+            <li class="list-group-item d-flex justify-content-between align-items-center" id="boardAll" onclick="location.href='/category/${category.categoryNo}'">
+                    ${category.categoryName}
+                <span class="badge bg-primary rounded-pill">${category.boardCnt}</span>
+            </li>
+        </c:forEach>
     </ul><br>
     <!-- Search widget-->
     <div class="card mb-4">
@@ -36,8 +42,10 @@
 <script type="text/javascript" src="<c:url value="/js/board.js"/> "></script>
 <script type="text/javascript">
     $(document).ready(function () {
-
-        addCategoryList(${categoryNo});
-
+        if (parseInt(${categoryNo}) >= 1) {
+            $('#categoryList li').eq(${categoryNo}).attr('class', 'list-group-item d-flex justify-content-between align-items-center active');
+        } else {
+            $('#categoryList li').eq(0).attr('class', 'list-group-item d-flex justify-content-between align-items-center active');
+        }
     });
 </script>

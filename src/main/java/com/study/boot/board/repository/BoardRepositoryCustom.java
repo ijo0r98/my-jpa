@@ -6,6 +6,9 @@ import java.util.List;
 
 public interface BoardRepositoryCustom {
 
+    // 전체 게시글 조회
+    List<BoardDto> findBoardAll();
+
     // 카테고리별 게시글 전체 조회
     List<BoardDto> findBoardAllByCategoryNo(Long categoryNo);
 

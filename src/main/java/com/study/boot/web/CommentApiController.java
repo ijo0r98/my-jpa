@@ -30,8 +30,6 @@ public class CommentApiController {
     private final MemberService memberService;
     private final BoardService boardService;
     private final CommentService commentService;
-    private Authentication authentication;
-    private Long categoryNo;
 
     @GetMapping("list/board/{boardNo}")
     public ResponseEntity<?> listByBoardNo(@PathVariable(value = "boardNo") Long boardNo) {

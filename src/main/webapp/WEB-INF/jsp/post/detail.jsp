@@ -33,18 +33,19 @@
                 <!-- Post header-->
                 <header class="mb-4">
                     <!-- Post title-->
-                    <h1 class="fw-bolder mb-1" id="boardTitle"></h1>
+                    <h1 class="fw-bolder mb-1" id="boardTitle">${board.boardTitle}</h1>
                     <!-- Post meta content-->
-                    <div class="text-muted fst-italic mb-2">Posted on January 1, 2021 by Start Bootstrap</div>
+                    <div class="text-muted fst-italic mb-2">Posted on ${board.regDate}</div>
                     <!-- Post categories-->
                     <a class="badge bg-secondary text-decoration-none link-light" id="categoryNm"></a>
                 </header>
                 <!-- Preview image figure-->
-                <figure class="mb-4"><img class="img-fluid rounded"
-                                          src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..."/></figure>
+                <figure class="mb-4">
+                    <img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..."/>
+                </figure>
                 <!-- Post content-->
                 <section class="mb-5">
-                    <p id="boardContent"></p>
+                    <p id="boardContent">${board.boardContent}</p>
                 </section>
             </article>
 
@@ -53,56 +54,33 @@
                 <div class="card bg-light">
                     <div class="card-body" id="bodyCmmt">
                         <!-- Comment form-->
-                        <div class="input-group"><textarea class="form-control" rows="1" placeholder="댓글을 남겨주세요"
-                                                           id="cmmtContent"></textarea>
-                            <button type="button" class="btn btn-outline-primary" id="btnRegCmmt">등록</button>
-                        </div>
+                        <div class="input-group"><textarea class="form-control" rows="1" placeholder="댓글을 남겨주세요" id="cmmtContent"></textarea>
+                            <button type="button" class="btn btn-outline-primary" id="btnRegCmmt">Submit</button>
+                        </div><br>
                         <!-- Comment with nested comments-->
-                        <%--                        <div class="d-flex mb-4">--%>
-                        <%--                            <!-- Parent comment-->--%>
-                        <%--                            <div class="flex-shrink-0"><img class="rounded-circle"--%>
-                        <%--                                                            src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"--%>
-                        <%--                                                            alt="..."/></div>--%>
-                        <%--                            <div class="ms-3">--%>
-                        <%--                                <div class="fw-bold">Commenter Name</div>--%>
-                        <%--                                If you're going to lead a space frontier, it has to be government; it'll never be--%>
-                        <%--                                private enterprise. Because the space frontier is dangerous, and it's expensive, and it--%>
-                        <%--                                has unquantified risks.--%>
-                        <%--                                <!-- Child comment 1-->--%>
-                        <%--                                <div class="d-flex mt-4">--%>
-                        <%--                                    <div class="flex-shrink-0"><img class="rounded-circle"--%>
-                        <%--                                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"--%>
-                        <%--                                                                    alt="..."/></div>--%>
-                        <%--                                    <div class="ms-3">--%>
-                        <%--                                        <div class="fw-bold">Commenter Name</div>--%>
-                        <%--                                        And under those conditions, you cannot establish a capital-market evaluation of--%>
-                        <%--                                        that enterprise. You can't get investors.--%>
-                        <%--                                    </div>--%>
-                        <%--                                </div>--%>
-                        <%--                                <!-- Child comment 2-->--%>
-                        <%--                                <div class="d-flex mt-4">--%>
-                        <%--                                    <div class="flex-shrink-0"><img class="rounded-circle"--%>
-                        <%--                                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"--%>
-                        <%--                                                                    alt="..."/></div>--%>
-                        <%--                                    <div class="ms-3">--%>
-                        <%--                                        <div class="fw-bold">Commenter Name</div>--%>
-                        <%--                                        When you put money directly to a problem, it makes a good headline.--%>
-                        <%--                                    </div>--%>
-                        <%--                                </div>--%>
-                        <%--                            </div>--%>
-                        <%--                        </div>--%>
-                        <!-- Single comment-->
-<%--                        <div class="d-flex">--%>
-<%--                            <div class="flex-shrink-0">--%>
-<%--                                <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."/>--%>
-<%--                            </div>--%>
+                        <c:forEach var="comments" items="${comments}" varStatus="status">
+                        <div class="d-flex mb-4">
+                            <!-- Parent comment-->
+                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."/></div>
+                            <div class="ms-3">
+                                <div class="fw-bold">${comments.memberName}</div>
+                                ${comments.commentContent}
+                            </div>
+                        </div>
+                        </c:forEach>
+                        <!-- Comment with nested comments-->
+<%--                        <div class="d-flex mb-4">--%>
+<%--                            <!-- Parent comment-->--%>
+<%--                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."/></div>--%>
 <%--                            <div class="ms-3">--%>
 <%--                                <div class="fw-bold">Commenter Name</div>--%>
-<%--                                When I look at the universe and all the ways the universe wants to kill us, I find it--%>
-<%--                                hard to reconcile that with statements of beneficence.--%>
+<%--                                If you're going to lead a space frontier, it has to be government; it'll never be--%>
+<%--                                private enterprise. Because the space frontier is dangerous, and it's expensive, and it--%>
+<%--                                has unquantified risks.--%>
+<%--                                <!-- Child comment 1-->--%>
 <%--                            </div>--%>
 <%--                        </div>--%>
-<%--                        <br/><br/>--%>
+                        <br/><br/>
                     </div>
                 </div>
             </section>
@@ -119,7 +97,7 @@
 <!-- Bootstrap core JavaScript -->
 <script src="../../../vendor/jquery/jquery.min.js"></script>
 <script src="./../../vendor/bootstrap/js/bootstrap.bundle.min.js">
-    <script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
+<script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
 <script type="text/javascript" src="<c:url value="/js/common.js"/> "></script>
 <script type="text/javascript" src="<c:url value="/js/board.js"/> "></script>
 <script type="text/javascript">
@@ -127,7 +105,7 @@
         let boardNo = ${boardNo};
 
         // 게시글 상세 정보
-        $.ajax({
+        /* $.ajax({
             url: baseUrl + '/api/board/info/' + boardNo,
             type: 'GET',
             dataType: 'json',
@@ -152,6 +130,7 @@
                 console.log('error');
             }
         });
+        */
 
         // 수정 버튼
         $('#btnBoardEdit').on('click', function () {
@@ -176,6 +155,7 @@
         })
 
         // 댓글
+        /*
         $.ajax({
             url: baseUrl + '/api/comment/list/' + boardNo,
             type: 'GET',
@@ -207,8 +187,10 @@
                 console.log('error');
             }
         })
+        */
 
         // 댓글 등록 버튼
+        /*
         $('#btnRegCmmt').on({
             click: function () {
                 if (confirm('댓글을 등록하시겠습니까?') == true) {
@@ -231,7 +213,7 @@
                     })
                 }
             }
-        })
+        })*/
     });
 </script>
 

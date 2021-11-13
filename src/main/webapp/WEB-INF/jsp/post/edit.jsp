@@ -61,24 +61,36 @@
                         <legend></legend>
                         <div class="form-group">
                             <label for="boardTitle">제목</label>
-                            <input type="text" class="form-control" id="boardTitle">
+                            <input type="text" class="form-control" id="boardTitle" value=${board.boardTitle}>
                         </div>
+                        <br>
                         <div class="form-group row">
                             <label for="memberNm" class="col-sm-2 col-form-label">작성자</label>
                            <div class="col-sm-10">
-                                <p type="text" readonly="" class="form-control-plaintext" id="memberNm">
+                                <p type="text" readonly="" class="form-control-plaintext" id="memberNm">${board.member.memberNm}
                             </div>
                         </div>
+                        <br>
                         <div class="form-group">
                             <label for="selectCategory">카테고리</label>
                             <select class="form-control" id="selectCategory">
+                                <c:forEach var="category" items="${categoryList}" varStatus="status">
+                                    <c:if test="${category.categoryNo eq board.category.categoryNo}">
+                                        <option id="${category.categoryNo}" selected="true">${category.categoryName}</option>
+                                    </c:if>
+                                    <c:if test="${category.categoryNo ne board.category.categoryNo}">
+                                        <option id="${category.categoryNo}">${category.categoryName}</option>
+                                    </c:if>
+                                </c:forEach>
                             </select>
                         </div>
+                        <br>
                         <div class="form-group">
                             <label for="boardContent">내용</label>
                             <textarea class="form-control" id="boardContent" rows="3"></textarea>
                         </div>
                     </fieldset>
+
                     <div class="form-group">
                         <button type="button" id="btnEditBoard" class="btn btn-secondary" style="display: none">수정</button>
                         <button type="button" id="btnCancelEdit" class="btn btn-secondary" style="display: none">취소</button>
@@ -94,25 +106,25 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        let boardNo = document.location.href.split(baseUrl + "/board/edit/")[1];
+        // let boardNo = document.location.href.split(baseUrl + "/board/edit/")[1];
 
         //게시글 기존 정보
-        $.ajax({
-            url: baseUrl + '/api/board/info/' + boardNo,
-            type: 'GET',
-            dataType: 'json',
-            success: function (result) {
-                // console.log(result)
-                $('#boardTitle').attr('value', result.data.boardInfo.boardTitle)
-                $('#memberNm').html(result.data.boardInfo.member.memberNm);
-                $('#boardContent').html(result.data.boardInfo.boardContent)
-
-                addSelectCategory(result.data.boardInfo.category.categoryNo);
-
-            }, error: function (error) {
-                console.log('error');
-            }
-        });
+        // $.ajax({
+        //     url: baseUrl + '/api/board/info/' + boardNo,
+        //     type: 'GET',
+        //     dataType: 'json',
+        //     success: function (result) {
+        //         // console.log(result)
+        //         $('#boardTitle').attr('value', result.data.boardInfo.boardTitle)
+        //         $('#memberNm').html(result.data.boardInfo.member.memberNm);
+        //         $('#boardContent').html(result.data.boardInfo.boardContent)
+        //
+        //         addSelectCategory(result.data.boardInfo.category.categoryNo);
+        //
+        //     }, error: function (error) {
+        //         console.log('error');
+        //     }
+        // });
 
         //수정 버튼
         $('#btnEditBoard').on({
@@ -149,27 +161,27 @@
         });
     });
 
-    function addSelectCategory(categoryNo) {
-        //게시글 카테고리 셀렉트박스
-        $.ajax({
-            url: baseUrl + '/api/category/list',
-            type: 'GET',
-            dataType: 'json',
-            success: function (result) {
-                // console.log(result)
-                $.each(result.data.categoryList, function(key, obj) {
-                    $('#selectCategory').append($('<option />', {
-                        value: obj.categoryNo,
-                        text: obj.categoryName
-                    }));
-                });
-
-                //기존의 카테고리로 셀렉트 박스 기본값 설정
-                $('#selectCategory').val(categoryNo).prop('selected', true);
-            }, error: function (error) {
-                console.log('error');
-            }
-        });
-    }
+    // function addSelectCategory(categoryNo) {
+    //     //게시글 카테고리 셀렉트박스
+    //     $.ajax({
+    //         url: baseUrl + '/api/category/list',
+    //         type: 'GET',
+    //         dataType: 'json',
+    //         success: function (result) {
+    //             // console.log(result)
+    //             $.each(result.data.categoryList, function(key, obj) {
+    //                 $('#selectCategory').append($('<option />', {
+    //                     value: obj.categoryNo,
+    //                     text: obj.categoryName
+    //                 }));
+    //             });
+    //
+    //             //기존의 카테고리로 셀렉트 박스 기본값 설정
+    //             $('#selectCategory').val(categoryNo).prop('selected', true);
+    //         }, error: function (error) {
+    //             console.log('error');
+    //         }
+    //     });
+    // }
 </script>
 </html>

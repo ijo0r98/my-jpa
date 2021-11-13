@@ -60,11 +60,24 @@
                     </tr>
                     </thead>
                     <tbody id="tBodyCategoryList">
+                    <c:forEach var="category" items="${category}" varStatus="status">
+                        <tr >
+                            <td scope="col">${category.categoryNo}</td>
+                            <td scope="col">${category.categoryName}</td>
+                            <td scope="col">${category.boardCnt}</td>
+                            <td scope="col">
+                                <button class="badge bg-light">수정</button>
+                            </td>
+                            <td scope="col">
+                                <button class="badge bg-light">삭제</button>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
 
                 <div class="form-group">
-                    <label for="newCategoryInput" class="form-label mt-4">카테고리 추가</label>
+                    <label for="newCategoryInput" class="form-label mt-4">카테고리 추가 및 수정</label>
                     <div class="d-flex">
                         <input class="form-control me-sm-2" type="text" id="newCategoryInput" name="categoryName">
                         <button class="btn btn-outline-secondary" type="button" id="btnAddCategory">OK</button>
@@ -93,15 +106,15 @@
 
         $('#category').addClass('active');
 
-        addCategoryListAdmin();
+        // addCategoryListAdmin();
 
-        $('#btnAddCategory').off('click').on({
-            click: function () {
-                if (confirm('새로운 카테고리(' + $('#newCategoryInput').val() + ')를 추가하시겠습니까?') == true) {
-                    addCategory($('#newCategoryInput').val());
-                }
-            }
-        });
+        // $('#btnAddCategory').off('click').on({
+        //     click: function () {
+        //         if (confirm('새로운 카테고리(' + $('#newCategoryInput').val() + ')를 추가하시겠습니까?') == true) {
+        //             addCategory($('#newCategoryInput').val());
+        //         }
+        //     }
+        // });
     });
 
 
