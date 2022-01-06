@@ -6,6 +6,7 @@ import com.study.boot.board.service.CommentService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -73,6 +74,4 @@ public class BoardController {
 
         return model;
     }
-
-
 }

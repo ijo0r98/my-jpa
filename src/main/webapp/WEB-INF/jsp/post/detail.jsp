@@ -95,8 +95,6 @@
 </body>
 
 <!-- Bootstrap core JavaScript -->
-<script src="../../../vendor/jquery/jquery.min.js"></script>
-<script src="./../../vendor/bootstrap/js/bootstrap.bundle.min.js">
 <script type="text/javascript" src="<c:url value="/js/jquery-1.12.4.js"/> "></script>
 <script type="text/javascript" src="<c:url value="/js/common.js"/> "></script>
 <script type="text/javascript" src="<c:url value="/js/board.js"/> "></script>
