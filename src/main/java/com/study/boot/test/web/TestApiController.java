@@ -7,19 +7,22 @@ import com.study.boot.test.service.TestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
-import java.util.Date;
+import java.util.*;
 
-@RestController
+@Controller
 @RequestMapping("/test")
 @RequiredArgsConstructor
 public class TestApiController {
@@ -81,6 +84,52 @@ public class TestApiController {
         return "test/imageV2";
     }
 
+    @PostMapping("/image/V2/api")
+    public ResponseEntity<?> imageUploadV2(MultipartFile imageV1, MultipartHttpServletRequest request) throws Exception{
+
+
+        Map <String, MultipartFile > paramMap = request.getFileMap();
+        System.out.println(paramMap);
+
+//        String uid=null; Map<String, String[]> paramMap1=request.getParameterMap();
+//        Iterator keyData1 = paramMap1.keySet().iterator();
+//        while (keyData1.hasNext()) {
+//            String key = ((String)keyData1.next());
+//            String[] value = paramMap1.get(key);
+//            System.out.println(("key : " + key + ", value : " + value[0].toString()));
+//            if(key.equals("uid")) {
+//                uid=value[0].toString().trim();
+//            }
+//        }
+//        Map <String, MultipartFile > paramMap = request.getFileMap ();
+//        Iterator keyData = paramMap.keySet().iterator();
+//
+//        Map<String, List<Map<String, String>>> result = new HashMap<>();
+//        List<Map<String, String>> data_list = new ArrayList();
+//        while (keyData.hasNext()) {
+//            Map<String, String> data = new HashMap<>();
+//        }
+//        String key = ((String)keyData.next());
+//        MultipartFile file = paramMap.get(key);
+
+        return ResponseEntity.ok().body("");
+    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+      public @ResponseBody String upload(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        // Getting uploaded files from the request object
+        Map<String, MultipartFile> fileMap = request.getFileMap();
+
+
+        System.out.println(request.getMultiFileMap());
+        // Iterate through the map
+        for (MultipartFile multipartFile : fileMap.values()) {
+            System.out.println(multipartFile);
+        }
+
+        return "ok";
+      }
 
 
 }
