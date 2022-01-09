@@ -30,7 +30,7 @@ function addCommentListMe(value) {
                         $(this).css("background-color", "#ffffff");
                     },
                     click: function () {
-                        location.href = '/post/' + obj.categoryNo + '/' + obj.boardNo;
+                        location.href = '/board/' + obj.categoryNo + '/' + obj.boardNo;
                     }
                 }).append($('<th />', {
                     scope: 'row',

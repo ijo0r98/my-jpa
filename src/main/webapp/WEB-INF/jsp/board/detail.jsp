@@ -14,9 +14,6 @@
     <title>JPA</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
 </head>
 <body>
@@ -55,7 +52,7 @@
                     <div class="card-body" id="bodyCmmt">
                         <!-- Comment form-->
                         <div class="input-group"><textarea class="form-control" rows="1" placeholder="댓글을 남겨주세요" id="cmmtContent"></textarea>
-                            <button type="button" class="btn btn-outline-primary" id="btnRegCmmt">Submit</button>
+                            <button type="button" class="btn btn-outline-secondary" id="btnRegCmmt">Submit</button>
                         </div><br>
                         <!-- Comment with nested comments-->
                         <c:forEach var="comments" items="${comments}" varStatus="status">
@@ -80,7 +77,6 @@
 <%--                                <!-- Child comment 1-->--%>
 <%--                            </div>--%>
 <%--                        </div>--%>
-                        <br/><br/>
                     </div>
                 </div>
             </section>
@@ -101,34 +97,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         let boardNo = ${boardNo};
-
-        // 게시글 상세 정보
-        /* $.ajax({
-            url: baseUrl + '/api/board/info/' + boardNo,
-            type: 'GET',
-            dataType: 'json',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-            },
-            success: function (result) {
-                // console.log(result)
-                $('#boardTitle').text(result.data.boardInfo.boardTitle);
-                $('#categoryNm').text(result.data.boardInfo.category.categoryName);
-                $('#boardContent').text(result.data.boardInfo.boardContent);
-                $('#boardViewCnt').text('조회수 : ' + result.data.boardInfo.boardViewCnt);
-                $('#boardRcmdCnt').text('추천수 : ' + result.data.boardInfo.boardRcmdCnt);
-                $('#boardRegInfo').text(result.data.boardInfo.regDate + ' / ' + result.data.boardInfo.member.memberId + '(' + result.data.boardInfo.member.memberNm + ')');
-
-                if ('${username}' === result.data.boardInfo.member.memberId) {
-                    $('#btnBoardEdit').show();
-                    $('#btnBoardDelete').show();
-                }
-
-            }, error: function (error) {
-                console.log('error');
-            }
-        });
-        */
 
         // 수정 버튼
         $('#btnBoardEdit').on('click', function () {

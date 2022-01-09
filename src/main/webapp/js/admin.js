@@ -24,7 +24,7 @@ function addBoardListAdmin(value) {
                 $('#tBodyBoardList').append($('<tr />', {
                     class: 'table-light',
                     click: function () {
-                        location.href = '/post/' + obj.categoryNo + '/' + obj.boardNo;
+                        location.href = '/board/' + obj.categoryNo + '/' + obj.boardNo;
                     }
                 }).append($('<th />', {
                     scope: 'row',

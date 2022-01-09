@@ -35,14 +35,15 @@
             <div class="col-lg-9">
                 <div class="carousel slide my-4" data-ride="carousel"></div>
                 <div>
+                    <br/>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">ADMIN</li>
                         <li class="breadcrumb-item active">회원 관리</li>
                     </ol>
                 </div>
-
-                <div class="form-group">
-                    <label for="selectRole" class="form-label mt-4">권한</label>
+                <br/>
+                <div class="form-group row">
+                    <label for="selectRole" class="col-sm-2 col-form-label">권한</label>
                     <select class="form-select" id="selectRole" style="width: 200px;">
                         <option selected="" value="">전체</option>
                         <option value="member">회원</option>
@@ -60,7 +61,7 @@
                             <col style="width:20%"/>
                         </colgroup>
                         <thead>
-                        <tr class="table-secondary">
+                        <tr class="table-primary">
                             <th scope="row">No</th>
                             <th scope="col">아이디</th>
                             <th scope="col">이름</th>

@@ -35,16 +35,18 @@
         <div class="col-lg-9">
             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel"></div>
             <div>
+                <br/>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">MyPage</li>
                     <li class="breadcrumb-item active">내 댓글</li>
                 </ol>
-
-                <div class="form-group">
-                    <label for="categoryList" class="form-label mt-4">카테고리</label>
-                    <select class="form-select" id="categoryList" style="width: 200px;">
-                        <option selected="" value="">전체</option>
-                    </select>
+                <br/>
+                <div class="form-group row">
+                <label for="categoryList" class="col-sm-2 col-form-label">카테고리</label>
+                <div class="col-sm-10">
+                <select class="form-select" id="categoryList" style="width: 200px;">
+                    <option selected="" value="">전체</option>
+                </select>
                 </div>
             </div>
             <br/>
@@ -58,7 +60,7 @@
                         <col style="width:10%"/>
                     </colgroup>
                     <thead>
-                    <tr class="table-secondary">
+                    <tr class="table-primary">
                         <th scope="row">No</th>
                         <th scope="col">제목</th>
                         <th scope="col">내용</th>

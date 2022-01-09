@@ -4,6 +4,10 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <div class="col-lg-4">
+    <!-- register -->
+    <div class="card mb-4">
+        <button class="btn btn-outline-primary" type="button" id="btnRegister">새 글 등록</button>
+    </div>
     <!-- Categories widget-->
     <ul class="list-group" id="categoryList">
         <li class="list-group-item d-flex justify-content-between align-items-center" id="boardAll" onclick="location.href='/'">
@@ -24,7 +28,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" placeholder="Enter search term..."
                        aria-label="Enter search term..." aria-describedby="button-search"/>
-                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                <button class="btn btn-outline-secondary" id="button-search" type="button">Go!</button>
             </div>
         </div>
     </div>
@@ -47,5 +51,11 @@
         } else {
             $('#categoryList li').eq(0).attr('class', 'list-group-item d-flex justify-content-between align-items-center active');
         }
+
+        $('#btnRegister').on({
+            click: function () {
+                location.href="/board/register";
+            }
+        })
     });
 </script>

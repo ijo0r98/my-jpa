@@ -39,7 +39,7 @@
                             <label class="form-label mt-4">비밀번호</label>
                             <div class="input-group mb-3" >
                                 <input id="inputPw" type="password" class="form-control" placeholder="Password" autocomplete="off" >
-                                <button class="btn btn-primary" type="button" id="btnCheckPw">확인</button>
+                                <button class="btn btn-outline-secondary" type="button" id="btnCheckPw">확인</button>
                                 <d id="invalidPw" class="invalid-feedback" style="display:none;">잘못된 비밀번호 입니다.</d>
                             </div>
                         </div>

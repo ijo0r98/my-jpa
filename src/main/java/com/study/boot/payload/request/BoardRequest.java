@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Getter
@@ -13,13 +14,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BoardRequest {
 
-    @NotNull
+
     private String boardTitle;
-
-    @NotNull
     private String boardContent;
-
-    @NotNull
     private Long categoryNo;
+    private MultipartFile image;
 
 }

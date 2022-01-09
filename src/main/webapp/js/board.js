@@ -90,7 +90,7 @@ function addBoardListByCategory(value) {
                     text: obj.memberId
                 })).append($('<a />', {
                     class: 'btn btn-primary',
-                    href: '/post/' + obj.categoryNo + '/' + obj.boardNo,
+                    href: '/board/' + obj.categoryNo + '/' + obj.boardNo,
                     text: 'Read more →'
                 })))))
             });
@@ -124,7 +124,7 @@ function addBoardListMe(value) {
                         $(this).css("background-color", "#ffffff");
                     },
                     click: function () {
-                        location.href = '/post/' + obj.categoryNo + '/' + obj.boardNo;
+                        location.href = '/board/' + obj.categoryNo + '/' + obj.boardNo;
                     }
                 }).append($('<th />', {
                     scope: 'row',

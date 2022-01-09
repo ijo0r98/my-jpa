@@ -33,7 +33,7 @@
 
         <div class="col-lg-9">
             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel"></div>
-
+            <br/>
             <div>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">ADMIN</li>
@@ -51,7 +51,7 @@
                         <col style="width:15%" />
                     </colgroup>
                     <thead>
-                    <tr class="table-secondary">
+                    <tr class="table-primary">
                         <th scope="col">No</th>
                         <th scope="col">카테고리명</th>
                         <th scope="col">글 수 </th>

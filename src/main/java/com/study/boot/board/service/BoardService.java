@@ -37,13 +37,13 @@ public class BoardService {
     }
 
     @Transactional
-    public void registerBoard(BoardRequest boardRequest, Member member, Category category) {
+    public void registerBoard(String boardTitle, String boardContent, Member member, Category category) {
 
         Board board = new Board();
         LocalDateTime now = LocalDateTime.now();
 
-        board.setBoardTitle(boardRequest.getBoardTitle());
-        board.setBoardContent(boardRequest.getBoardContent());
+        board.setBoardTitle(boardTitle);
+        board.setBoardContent(boardContent);
         board.setCategory(category);
         board.setRegDate(now);
         board.setUpdateDate(now);

@@ -33,7 +33,7 @@ public class BoardController {
 
     // 카테고리별 메인
     @GetMapping("category/{categoryNo}")
-    public ModelAndView boardListAll(@PathVariable(name = "categoryNo") long categoryNo) throws Exception {
+    public ModelAndView boardByCategory(@PathVariable(name = "categoryNo") long categoryNo) throws Exception {
 
         ModelAndView model = new ModelAndView();
         model.addObject("boardList", boardService.findBoardAllByCategoryNo(categoryNo));
@@ -44,12 +44,12 @@ public class BoardController {
         return model;
     }
 
-    @GetMapping("post/register")
-    public String boardRegisterForm() throws Exception {
-        return "/post/register";
+    @GetMapping("board/register")
+    public String register() throws Exception {
+        return "/board/register";
     }
 
-    @GetMapping("post/{categoryNo}/{boardNo}")
+    @GetMapping("board/{categoryNo}/{boardNo}")
     public ModelAndView ModelAndView(@PathVariable(name = "boardNo") long boardNo, @PathVariable(name = "categoryNo") long categoryNo) throws Exception {
 
         ModelAndView model = new ModelAndView();
@@ -58,19 +58,19 @@ public class BoardController {
         model.addObject("boardNo", boardNo);
         model.addObject("board", boardService.findBoardByNo(boardNo));
         model.addObject("comments", commentService.findCommentAllByBoardNo(boardNo));
-        model.setViewName("/post/detail");
+        model.setViewName("/board/detail");
 
         return model;
     }
 
-    @GetMapping("post/edit/{boardNo}")
+    @GetMapping("board/edit/{boardNo}")
     public ModelAndView boardEditForm(@PathVariable(name = "boardNo") long boardNo) throws Exception {
 
         ModelAndView model = new ModelAndView();
         model.addObject("boardNo", boardNo);
         model.addObject("categoryList", categoryService.findCategoryCntAll());
         model.addObject("board", boardService.findBoardByNo(boardNo));
-        model.setViewName("/post/edit");
+        model.setViewName("/board/edit");
 
         return model;
     }

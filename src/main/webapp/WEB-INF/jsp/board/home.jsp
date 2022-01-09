@@ -14,9 +14,6 @@
     <!-- Favicon-->
     <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
 </head>
 <body>
 <style>
@@ -47,32 +44,7 @@
         <div class="row">
             <!-- Blog entries-->
             <div class="col-lg-8">
-                <!-- Featured blog post-->
-<%--                <div class="card mb-4">--%>
-<%--                    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg"--%>
-<%--                                      alt="..."/></a>--%>
-<%--                    <div class="card-body">--%>
-<%--                        <div class="small text-muted">January 1, 2021</div>--%>
-<%--                        <h2 class="card-title">Featured Post Title</h2>--%>
-<%--                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis--%>
-<%--                            aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi--%>
-<%--                            vero voluptate voluptatibus possimus, veniam magni quis!</p>--%>
-<%--                        <a class="btn btn-primary" href="#!">Read more →</a>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-
-                <!-- Nested row for non-featured blog posts-->
                 <div class="row" id="divPost">
-<%--                    <div class="col-lg-6">--%>
-<%--                        <div class="card mb-4">--%>
-<%--                            <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="img">--%>
-<%--                            <div class="card-body">--%>
-<%--                                <div class="small text-muted">2021-08-12</div>--%>
-<%--                                <h2 class="card-title h4">title</h2>--%>
-<%--                                <p class="card-text">memberName</p>--%>
-<%--                                <a class="btn btn-primary" href="/post/1/1">Read more →</a></div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
                     <c:forEach var="board" items="${boardList}" varStatus="status">
                         <div class="col-lg-6">
                             <div class="card mb-4">
@@ -81,7 +53,7 @@
                                     <div class="small text-muted">${board.regDate}</div>
                                     <h2 class="card-title h4">${board.boardTitle}</h2>
                                     <p class="card-text">${board.memberName}</p>
-                                    <a class="btn btn-primary" href="/post/${board.categoryNo}/${board.boardNo}">Read more →</a></div>
+                                    <a class="btn btn-primary" href="/board/${board.categoryNo}/${board.boardNo}">Read more →</a></div>
                             </div>
                         </div>
                     </c:forEach>
@@ -119,26 +91,11 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        // addCategoryList('all');
-
-        // 처음 화면 전체 게시물 리스트 출력
-        // addBoardListByCategory("");
-
         $('#registerBoard').on({
             click: function () {
                 location.href = baseUrl + '/board/register';
             }
         });
-
-        // //카테고리 전체 탭
-        // $('#categoryList li').off('click').on({
-        //     click: function () {
-        //         $(this).attr('class', 'list-group-item d-flex justify-content-between align-items-center active');
-        //         $(this).siblings().attr('class', 'list-group-item d-flex justify-content-between align-items-center');
-        //
-        //         addBoardListByCategory('');
-        //     }
-        // })
 
         if (parseInt(${categoryNo}) >= 1) {
             $('#categoryList li').eq(${categoryNo}).attr('class', 'list-group-item d-flex justify-content-between align-items-center active');
